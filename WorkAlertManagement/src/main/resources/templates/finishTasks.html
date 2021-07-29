@@ -3,17 +3,17 @@
 <title>FINISHED TASK</title>
 </head>
 
-<h1>FINISHED TASK</h1>
+<h1 style="text-align: center;color: blue">FINISHED TASK</h1>
 
 <form th:action="@{/task/finishTasks}" method="POST">
-	<table border="1">
+	<table border="1" align="center">
 		<tr>
 			<th>Id</th>
 			<th>Task1</th>
 			<th>Task2</th>
 			<th>Task3</th>
 			<th>Task4</th>
-			<th>Task Date</th>
+			<th>Finished Task Date</th>
 			<th>Operations</th>
 		</tr>
 		<tr th:each="ob:${finishTaskList}">
@@ -34,7 +34,7 @@
 	<span><a href="${message}"></a></span>
 	<span><a href="${delete}"></a></span>
 </form>
-<a th:href="@{/task/home}">Back</a>
+<h3 style="text-align: center"><a th:href="@{/task/home}">Back</a></h3>
 <br>
 <body>
 

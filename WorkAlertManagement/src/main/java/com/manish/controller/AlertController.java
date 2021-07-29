@@ -34,10 +34,10 @@ public class AlertController {
 		return "welcome";
 	}
 
-	@RequestMapping("/addToTask")
+	@RequestMapping("/addNewTask")
 	public String addToTaskList() {
 		System.out.println("AlertController.addToTaskList()");
-		return "registerTask";
+		return "addNewTask";
 	}
 
 	@PostMapping("/save")
@@ -47,19 +47,19 @@ public class AlertController {
 		final Integer id = dbService.addTask(task);
 		final String message = "Task " + id + " is Added in TODO List";
 		model.addAttribute("message", message);
-		return "registerTask";
+		return "addNewTask";
 	}
 
-	@GetMapping("/allTasks")
+	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
 		final List<Task> list = dbService.getAllTasks();
 		model.addAttribute("taskList", list);
-		return "allTasks";
+		return "pendingTasks";
 	}
 
-	@GetMapping("/taskByDate")
+	@GetMapping("/pendingTaskByDate")
 	public String getTaskByDate() {
-		return "taskByDate";
+		return "pendingTaskByDate";
 	}
 
 	@PostMapping("/allTaskByDate")
@@ -89,9 +89,9 @@ public class AlertController {
 	@GetMapping("/deleteTask")
 	public String deleteTask(@RequestParam("id") Integer id) {
 		dbService.deleteById(id);
-		return "redirect:allTasks";
+		return "redirect:pendingTasks";
 	}
-	
+
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id,Model model) {
 		Task task = dbService.getTaskById(id);

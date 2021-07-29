@@ -3,10 +3,10 @@
 <title>PENDING TASKS</title>
 </head>
 
-<h1>PENDING TASKS</h1>
+<h1 style="text-align: center;color: red">PENDING TASKS</h1>
 
-<form th:action="@{/task/allTasks}" method="GET">
-	<table border="1">
+<form th:action="@{/task/pendingTasks}" method="GET" align="center">
+	<table border="1" align="center">
 		<tr>
 			<th>Id</th>
 			<th>Task1</th>
@@ -35,7 +35,7 @@
 	<span><a href="${message}"></a></span>
 	<span><a href="${delete}"></a></span>
 </form>
-<a th:href="@{/task/home}">Back</a>
+<h3 style="text-align: center;"><a th:href="@{/task/home}">Back</a></h3>
 <br>
 <body>
 
