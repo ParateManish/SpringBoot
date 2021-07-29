@@ -1,5 +1,7 @@
 package com.manish.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.thymeleaf.Thymeleaf;
 
 import com.manish.model.Task;
 import com.manish.service.DBService;
@@ -56,12 +57,25 @@ public class AlertController {
 	}
 
 	@PostMapping("/allTaskByDate")
-	public String getTaskByDate(@ModelAttribute Task task, Model model) {
+	public String getTaskByDate(@ModelAttribute Date date, Model model) throws ParseException {
+		System.out.println(date.toString());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String strDate = formatter.format(date);
+		System.out.println("String date :: "+strDate);
+		Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(strDate);  
+		System.out.println("Date date :: "+date1);
+		
 		System.out.println("AlertController.getTaskByDate()");
-		if(task.getTaskDate()!=null) {
-			System.out.println("Selected Date :: "+task.getTaskDate());
-			final List<Task> list = dbService.getTaskByDate(task.getTaskDate());
-			model.addAttribute("list", list);
+		if(date1!=null) {
+			System.out.println("Selected Date :: "+date1);
+			final List<Task> list = dbService.getTaskByDate(date1);
+			if(list.isEmpty()) {
+				model.addAttribute("isListEmpty",true);
+				model.addAttribute("message", "Tasks not found for the given date :: "+date1);
+			}else {
+				model.addAttribute("isListEmpty",false);
+				model.addAttribute("list", list);
+			}
 		}
 		return "allTaskByDate";
 	}

@@ -6,6 +6,10 @@
 <h1>show All Data</h1>
 
 <form th:action="@{/task/taskByDate}" method="GET">
+<div th:if="${isListEmpty}">
+  <span th:text="${message}"/>
+</div>
+<div th:unless="${isListEmpty}">
 	<table border="1">
 		<tr>
 			<th>Id</th>
@@ -31,6 +35,7 @@
 
 
 	</table>
+</div>	
 	<span><a href="${message}"></a></span>
 </form>
 <a th:href="@{/task/home}">Back</a>

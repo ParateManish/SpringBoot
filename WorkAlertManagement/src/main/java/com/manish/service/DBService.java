@@ -1,5 +1,6 @@
 package com.manish.service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -18,12 +19,13 @@ public class DBService {
 		return taskRepo.save(task).getId();
 	}
 
-	public List<Task> getAllTasks(){
+	public List<Task> getAllTasks() {
 		return taskRepo.findAll();
 	}
 
-	public List<Task> getTaskByDate(Date date){
-		return taskRepo.findByTaskDate(date);
+	public List<Task> getTaskByDate(Date date) {
+		List<Task> list = taskRepo.findByTaskDate(date);
+		return list;
 	}
 
 }
