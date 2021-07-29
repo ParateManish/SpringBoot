@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+
+<h1 style="text-align: center;color: window">Welcome to Task Management System</h1>
+
+	<h2 style="text-align: center;">
+		<a th:href="@{/userLogin/getLoginPage}">LOGIN </a>or
+		<a th:href="@{/userLogin/getSignupPage}">SIGNUP</a>
+	</h2>
+<h3 style="text-align: center;color: navy"><span th:text="${message}"></span></h3>
+</html>
