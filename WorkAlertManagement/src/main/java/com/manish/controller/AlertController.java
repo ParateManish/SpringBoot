@@ -14,15 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.manish.model.FinishTask;
 import com.manish.model.Task;
 import com.manish.service.DBService;
+import com.manish.service.FinishTaskDBService;
 
 @Controller
 @RequestMapping("/task")
 public class AlertController {
 	@Autowired
 	private DBService dbService;
-
+	@Autowired
+	private FinishTaskDBService finishDBService;
+	
+	
 	@RequestMapping("/home")
 	public String showHome() {
 		System.out.println("AlertController.showHome()");
@@ -86,5 +91,28 @@ public class AlertController {
 		dbService.deleteById(id);
 		return "redirect:allTasks";
 	}
-
+	
+	@GetMapping("/finishTasks")
+	public String finishTasks(@RequestParam("id") Integer id,Model model) {
+		Task task = dbService.getTaskById(id);
+		FinishTask finishTask = new FinishTask();
+		finishTask.setTask1(task.getTask1());
+		finishTask.setTask2(task.getTask2());
+		finishTask.setTask3(task.getTask3());
+		finishTask.setTask4(task.getTask4());
+		finishTask.setFinishTaskDate(new Date());
+		finishDBService.addTask(finishTask);
+		dbService.deleteById(id);
+		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
+		model.addAttribute("finishTaskList",finishTaskList);
+		return "finishTasks";
+	}
+	
+	@GetMapping("/getAllFinishTasks")
+	public String getAllFinishTasks(Model model) {
+		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
+		model.addAttribute("finishTaskList",finishTaskList);
+		return "finishTasks";
+	}
+	
 }

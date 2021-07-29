@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/">
-<title>PENDING TASKS</title>
+<title>FINISHED TASK</title>
 </head>
 
-<h1>PENDING TASKS</h1>
+<h1>FINISHED TASK</h1>
 
-<form th:action="@{/task/allTasks}" method="GET">
+<form th:action="@{/task/finishTasks}" method="POST">
 	<table border="1">
 		<tr>
 			<th>Id</th>
@@ -16,15 +16,14 @@
 			<th>Task Date</th>
 			<th>Operations</th>
 		</tr>
-		<tr th:each="ob:${taskList}">
+		<tr th:each="ob:${finishTaskList}">
 			<td th:text="${ob.id}"></td>
 			<td th:text="${ob.task1}"></td>
 			<td th:text="${ob.task2}"></td>
 			<td th:text="${ob.task3}"></td>
 			<td th:text="${ob.task4}"></td>
-			<td th:text="${ob.taskDate}"></td>
+			<td th:text="${ob.finishTaskDate}"></td>
 			<td>
-				<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
 				<a href="#">EDIT</a> |
 				<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
 			</td>

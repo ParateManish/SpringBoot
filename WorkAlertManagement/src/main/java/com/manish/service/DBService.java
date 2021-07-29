@@ -32,4 +32,8 @@ public class DBService {
 		taskRepo.deleteById(id);
 	}
 
+	public Task getTaskById(Integer id) {
+		return taskRepo.findById(id).get();
+	}
+
 }
