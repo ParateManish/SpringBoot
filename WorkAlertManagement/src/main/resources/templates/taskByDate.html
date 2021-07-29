@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<title>show All Data</title>
+</head>
+
+<h1>show All Data</h1>
+
+<form th:action="@{/task/allTaskByDate}" method="POST">
+	Select Date :: <input type="date" name="taskDate">
+	<input type="submit" value="Get Tasks">
+</form>
+<a th:href="@{/task/home}">Back</a>
+<br>
+<body>
+
+</body>
+</html>

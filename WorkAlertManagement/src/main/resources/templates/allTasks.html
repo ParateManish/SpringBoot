@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<title>show All Data</title>
+</head>
+
+<h1>show All Data</h1>
+
+<form th:action="@{/task/allTasks}" method="GET">
+	<table border="1">
+		<tr>
+			<th>Id</th>
+			<th>Task1</th>
+			<th>Task2</th>
+			<th>Task3</th>
+			<th>Task4</th>
+			<th>Task Date</th>
+			<th>Operations</th>
+		</tr>
+		<tr th:each="ob:${taskList}">
+			<td th:text="${ob.id}"></td>
+			<td th:text="${ob.task1}"></td>
+			<td th:text="${ob.task2}"></td>
+			<td th:text="${ob.task3}"></td>
+			<td th:text="${ob.task4}"></td>
+			<td th:text="${ob.taskDate}"></td>
+			<td><a href="#">DONE</a> | 
+				<a href="#">EDIT</a> |
+				<a href="#">DELETE</a> 
+			</td>
+		</tr>
+
+
+	</table>
+	<span><a href="${message}"></a></span>
+</form>
+<a th:href="@{/task/home}">Back</a>
+<br>
+<body>
+
+</body>
+</html>
