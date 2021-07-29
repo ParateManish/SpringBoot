@@ -25,13 +25,14 @@
 			<td th:text="${ob.taskDate}"></td>
 			<td><a href="#">DONE</a> | 
 				<a href="#">EDIT</a> |
-				<a href="#">DELETE</a> 
+				<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
 			</td>
 		</tr>
 
 
 	</table>
 	<span><a href="${message}"></a></span>
+	<span><a href="${delete}"></a></span>
 </form>
 <a th:href="@{/task/home}">Back</a>
 <br>

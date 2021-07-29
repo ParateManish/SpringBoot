@@ -28,4 +28,8 @@ public class DBService {
 		return list;
 	}
 
+	public void deleteById(Integer id) {
+		taskRepo.deleteById(id);
+	}
+
 }
