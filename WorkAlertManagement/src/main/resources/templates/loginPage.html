@@ -5,10 +5,11 @@
 
 <form th:action="@{/userLogin/login}" method="POST" align="center">
 	<table border="1" >
-		Enter Username :: <input type="text" name="userName"><br><br>
-		Enter Password :: <input type="password" name="password"><br><br>
-		<input type="submit" value="LOGIN">
+		Enter Username :: <input type="text" name="userName" required="required"><br><br>
+		Enter Password :: <input type="password" name="password" required="required"><br><br>
+		<input type="submit" value="LOGIN"/><br> <br>
+		<a th:href="@{/userLogin/home}"><input type="button" value="CANCEL"/></a>
 	</table>
 </form>
-
+<h3 style="text-align: center;color: navy"><span th:text="${message}"></span></h3>
 </html>

@@ -5,20 +5,35 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.manish.model.UserLogin;
 import com.manish.repository.IUserLoginRepository;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class UserLoginDBService {
 
 	@Autowired
 	private IUserLoginRepository loginRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-	public void saveUser(@ModelAttribute UserLogin login) {
-		loginRepo.save(login);
+	public void saveUser(@ModelAttribute UserLogin user) {
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
+		
+		String randomCode = RandomString.make(64);
+//		user.setVerificationCode(randomCode);
+//		user.setEnabled(false);
+		user.setEnabled(true);
+		loginRepo.save(user);
+		
+//		sendVerificationEmail(user, siteURL);
 	}
 
 	public Map<String, String> getUser(String userName, String password) {

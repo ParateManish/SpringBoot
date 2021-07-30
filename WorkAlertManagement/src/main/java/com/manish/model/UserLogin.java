@@ -18,9 +18,13 @@ public class UserLogin {
 	@GeneratedValue
 	@Column(name = "user_id")
 	private Integer id;
-	@Column(name = "user_name",length = 15,unique = true)
+	@Column(name = "user_name",length = 40,unique = true)
 	private String userName;
-	@Column(name = "pass",length = 15)
+	@Column(name = "pass",length = 70)
 	private String password;
+	@Column(name = "email",length = 40)
+	private String email;
+	@Column
+	private boolean enabled;
 	
 }

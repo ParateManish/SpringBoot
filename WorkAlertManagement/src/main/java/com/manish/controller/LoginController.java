@@ -43,15 +43,21 @@ public class LoginController {
 		return "loginPage";
 	}
 
-	@PostMapping("/login")
-	public String checkUser(@ModelAttribute UserLogin user, Model model) {
-		Map<String, String> map = dbService.getUser(user.getUserName(), user.getPassword());
+	/*	@PostMapping("/login")
+		public String checkUser(@ModelAttribute UserLogin user, Model model) {
+			Map<String, String> map = dbService.getUser(user.getUserName(), user.getPassword());
+	
+			if (map.get("message") != null) {
+				model.addAttribute("message", map.get("message"));
+				return "loginPage";
+			} else
+				return "welcome";
+		}*/
 
-		if (map.get("message") != null) {
-			model.addAttribute("message", map.get("message"));
-			return "home";
-		} else
+	@GetMapping("/login")
+	public String checkUser(@ModelAttribute UserLogin user, Model model) {
+		System.out.println("LoginController.checkUser()");
 			return "welcome";
 	}
-
+	
 }
