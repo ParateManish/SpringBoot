@@ -23,4 +23,8 @@ public class FinishTaskDBService {
 		finishTasksRepo.save(task);
 	}
 	
+	public void deleteById(Integer id) {
+		finishTasksRepo.deleteById(id);
+	}
+	
 }

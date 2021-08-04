@@ -47,7 +47,7 @@ public class AlertController {
 				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
 			model.addAttribute("message", "Add Least 1 task");
 			return "addNewTask";
-			
+
 		}
 		task.setTaskDate(new Date());
 		final Integer id = dbService.addTask(task);
@@ -58,6 +58,7 @@ public class AlertController {
 
 	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
+		System.out.println("AlertController.getAllTasks()");
 		final List<Task> list = dbService.getAllTasks();
 		model.addAttribute("taskList", list);
 		return "pendingTasks";
@@ -65,11 +66,13 @@ public class AlertController {
 
 	@GetMapping("/pendingTaskByDate")
 	public String getTaskByDate() {
+		System.out.println("AlertController.getTaskByDate()");
 		return "pendingTaskByDate";
 	}
 
 	@PostMapping("/allTaskByDate")
 	public String getTaskByDate(@ModelAttribute Date date, Model model) throws ParseException {
+		System.out.println("AlertController.getTaskByDate()");
 		System.out.println(date.toString());
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String strDate = formatter.format(date);
@@ -94,12 +97,21 @@ public class AlertController {
 
 	@GetMapping("/deleteTask")
 	public String deleteTask(@RequestParam("id") Integer id) {
+		System.out.println("AlertController.deleteTask()");
 		dbService.deleteById(id);
 		return "redirect:pendingTasks";
+	}
+	@GetMapping("/deleteFinishTask")
+	public String deleteFinishTask(@RequestParam("id") Integer id) {
+		System.out.println("AlertController.deleteFinishTask()");
+		System.out.println("Record is deleted with id "+id);
+		finishDBService.deleteById(id);
+		return "redirect:getAllFinishTasks";
 	}
 
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id, Model model) {
+		System.out.println("AlertController.finishTasks()");
 		Task task = dbService.getTaskById(id);
 		FinishTask finishTask = new FinishTask();
 		finishTask.setTask1(task.getTask1());
@@ -116,6 +128,7 @@ public class AlertController {
 
 	@GetMapping("/getAllFinishTasks")
 	public String getAllFinishTasks(Model model) {
+		System.out.println("AlertController.getAllFinishTasks()");
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
 		return "finishTasks";
