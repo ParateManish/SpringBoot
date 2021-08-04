@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.manish.model.FinishTask;
 import com.manish.model.Task;
@@ -42,7 +41,7 @@ public class AlertController {
 	}
 
 	@PostMapping("/save")
-	public String addToTaskListd(@ModelAttribute Task task, Model model) {
+	public String addToTaskList(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.addToTaskListd()");
 		if (StringUtils.isBlank(task.getTask1()) && StringUtils.isBlank(task.getTask2())
 				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
@@ -51,6 +50,7 @@ public class AlertController {
 
 		}
 		task.setTaskDate(new Date());
+		task.setTaskModifiedDate(new Date());
 		final Integer id = dbService.addTask(task);
 		final String message = "Task " + id + " is Added in TODO List";
 		model.addAttribute("message", message);
@@ -62,15 +62,13 @@ public class AlertController {
 		System.out.println("AlertController.getAllTasks()");
 		Boolean isEmptyList =  false; 
 		final List<Task> list = dbService.getAllTasks();
-		System.out.println(list.size()==0);
-		System.out.println(list.isEmpty());
-		System.out.println(list.size());
 		if(list.size()==0) {
 			System.out.println("list is empty");
 			isEmptyList = true;
 			model.addAttribute("message", "Congratulations! You Don't have pending task now");
 		}else {
 			isEmptyList = false;
+			System.out.println("list is not empty");
 			model.addAttribute("taskList", list);
 		}
 		model.addAttribute("isEmptyList",isEmptyList);
@@ -149,4 +147,29 @@ public class AlertController {
 		return "finishTasks";
 	}
 
+	@GetMapping("/editPage")
+	public String getEditPage(@RequestParam("id") Integer id,Model model) {
+		System.out.println("AlertController.getEditPage()");
+		System.out.println("edit id :: "+id);
+		Task task = dbService.getTaskById(id);
+
+		model.addAttribute("task",task);
+
+		return "editPage";
+	}
+	
+	@PostMapping("/edit")
+	public String editPage(@ModelAttribute Task task, Model model) {
+		System.out.println("AlertController.editPage()");
+		System.out.println(task.toString());
+		task.setTaskDate(new Date());
+		task.setTaskModifiedDate(new Date());
+		
+		final Integer id = dbService.addTask(task);
+		final String message = "Task " + id + " is Modified in TODO List";
+		model.addAttribute("message", message);
+		return "editPage";
+	}
+	
+	
 }

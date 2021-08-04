@@ -19,6 +19,7 @@
 				<th>Task3</th>
 				<th>Task4</th>
 				<th>Task Date</th>
+				<th>Task Modified Date</th>
 				<th>Operations</th>
 			</tr>
 			<tr th:each="ob:${taskList}">
@@ -28,9 +29,10 @@
 				<td th:text="${ob.task3}"></td>
 				<td th:text="${ob.task4}"></td>
 				<td th:text="${ob.taskDate}"></td>
+				<td th:text="${ob.taskModifiedDate}"></td>
 				<td>
 					<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
-					<a href="#">EDIT</a> |
+					<a th:href="@{/task/editPage(id=${ob.id})}">EDIT</a> |
 					<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
 				</td>
 			</tr>

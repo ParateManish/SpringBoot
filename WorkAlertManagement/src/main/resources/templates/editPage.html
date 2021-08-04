@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Page</title>
+</head>
+<body>
+<h1 style="text-align: center">Edit Page</h1>
+<h1 style="text-align: center;color: green">Edit Your Task </h1>
+<form th:action="@{/task/edit}" method="POST" align="center">
+<pre>
+		Task Id :: <input type="text" name = "id" th:value ="${task.id}" readonly="readonly"/><br>
+		Task 1 :: <input type="text" name = "task1" th:value="${task.task1}"/><br>
+		Task 2 :: <input type="text" name = "task2" th:value="${task.task2}"/><br>
+		Task 3 :: <input type="text" name = "task3" th:value="${task.task3}"/><br>
+		Task 4 :: <input type="text" name = "task4" th:value="${task.task4}"/><br>
+		<input type="submit" value="EDIT">
+</pre>
+</form>
+<h2 style="text-align: center;"><a th:href="@{/task/home/}">Back</a></h2>
+<h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
+</body>	
+</html>

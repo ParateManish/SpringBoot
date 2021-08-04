@@ -35,4 +35,6 @@ public class Task {
 	private String task4;
 	@Temporal(TemporalType.DATE)
 	private Date taskDate;
+	@Temporal(TemporalType.DATE)
+	private Date taskModifiedDate;
 }
