@@ -45,7 +45,7 @@ public class AlertController {
 		System.out.println("AlertController.addToTaskListd()");
 		if (StringUtils.isBlank(task.getTask1()) && StringUtils.isBlank(task.getTask2())
 				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
-			model.addAttribute("message", "Add Least 1 task");
+			model.addAttribute("errMessage", "Sorry Task is not Added,Please mention at Least 1 task in above");
 			return "addNewTask";
 
 		}

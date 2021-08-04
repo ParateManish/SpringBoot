@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
-<title>PENDING TASKS</title>
+<html lang="en">
+<head>
+  <title>PENDING TASKS</title>
+ <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<body>
+
+
 
 <h1 style="text-align: center;color: red">PENDING TASKS</h1>
 
@@ -11,8 +18,10 @@
 
 <div th:unless="${isEmptyList}">
 	<form th:action="@{/task/pendingTasks}" method="GET" align="center">
-		<table border="1" align="center">
-			<tr>
+		<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
 				<th>Id</th>
 				<th>Task1</th>
 				<th>Task2</th>
@@ -22,7 +31,9 @@
 				<th>Task Modified Date</th>
 				<th>Operations</th>
 			</tr>
-			<tr th:each="ob:${taskList}">
+    </thead>
+    <tbody>
+      <tr th:each="ob:${taskList}">
 				<td th:text="${ob.id}"></td>
 				<td th:text="${ob.task1}"></td>
 				<td th:text="${ob.task2}"></td>
@@ -31,17 +42,23 @@
 				<td th:text="${ob.taskDate}"></td>
 				<td th:text="${ob.taskModifiedDate}"></td>
 				<td>
-					<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
-					<a th:href="@{/task/editPage(id=${ob.id})}">EDIT</a> |
-					<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
+					<a th:href="@{/task/finishTasks(id=${ob.id})}">
+						<input type="button" value="DONE" class="btn-success">
+					</a>
+					<a th:href="@{/task/editPage(id=${ob.id})}">
+						<input type="button" value="EDIT" class="btn-primary">
+					</a>
+<!-- 					<a th:href="@{/task/editPage(id=${ob.id})}"><img src="/com/manish/controller/abc.jpg" style="width:20px;height:20px"></a> | -->
+					<a th:href="@{/task/deleteTask(id=${ob.id})}">
+						<input type="button" value="DELETE" class="btn-danger"></a>
+					</a> 
 				</td>
 			</tr>
-		</table>
+    </tbody>
+  </table>
+</div>
 	</form>
 	</div>
-<h3 style="text-align: center;"><a th:href="@{/task/home}">Back</a></h3>
+<h3 style="text-align: center;"><a th:href="@{/task/home}">Home</a></h3>
 <br>
-<body>
-
-</body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+				<th>Id</th>
+				<th>Task1</th>
+				<th>Task2</th>
+				<th>Task3</th>
+				<th>Task4</th>
+				<th>Task Date</th>
+				<th>Task Modified Date</th>
+				<th>Operations</th>
+			</tr>
+    </thead>
+    <tbody>
+      <tr th:each="ob:${taskList}">
+				<td th:text="${ob.id}"></td>
+				<td th:text="${ob.task1}"></td>
+				<td th:text="${ob.task2}"></td>
+				<td th:text="${ob.task3}"></td>
+				<td th:text="${ob.task4}"></td>
+				<td th:text="${ob.taskDate}"></td>
+				<td th:text="${ob.taskModifiedDate}"></td>
+				<td>
+					<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
+					<a th:href="@{/task/editPage(id=${ob.id})}">EDIT</a> |
+					<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
+				</td>
+			</tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
