@@ -5,36 +5,38 @@
 
 <h1 style="text-align: center;color: red">PENDING TASKS</h1>
 
-<form th:action="@{/task/pendingTasks}" method="GET" align="center">
-	<table border="1" align="center">
-		<tr>
-			<th>Id</th>
-			<th>Task1</th>
-			<th>Task2</th>
-			<th>Task3</th>
-			<th>Task4</th>
-			<th>Task Date</th>
-			<th>Operations</th>
-		</tr>
-		<tr th:each="ob:${taskList}">
-			<td th:text="${ob.id}"></td>
-			<td th:text="${ob.task1}"></td>
-			<td th:text="${ob.task2}"></td>
-			<td th:text="${ob.task3}"></td>
-			<td th:text="${ob.task4}"></td>
-			<td th:text="${ob.taskDate}"></td>
-			<td>
-				<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
-				<a href="#">EDIT</a> |
-				<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
-			</td>
-		</tr>
+<div th:if="${isEmptyList}">
+<h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
+</div>
 
-
-	</table>
-	<span><a href="${message}"></a></span>
-	<span><a href="${delete}"></a></span>
-</form>
+<div th:unless="${isEmptyList}">
+	<form th:action="@{/task/pendingTasks}" method="GET" align="center">
+		<table border="1" align="center">
+			<tr>
+				<th>Id</th>
+				<th>Task1</th>
+				<th>Task2</th>
+				<th>Task3</th>
+				<th>Task4</th>
+				<th>Task Date</th>
+				<th>Operations</th>
+			</tr>
+			<tr th:each="ob:${taskList}">
+				<td th:text="${ob.id}"></td>
+				<td th:text="${ob.task1}"></td>
+				<td th:text="${ob.task2}"></td>
+				<td th:text="${ob.task3}"></td>
+				<td th:text="${ob.task4}"></td>
+				<td th:text="${ob.taskDate}"></td>
+				<td>
+					<a th:href="@{/task/finishTasks(id=${ob.id})}">DONE</a>  |
+					<a href="#">EDIT</a> |
+					<a th:href="@{/task/deleteTask(id=${ob.id})}">DELETE</a> 
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
 <h3 style="text-align: center;"><a th:href="@{/task/home}">Back</a></h3>
 <br>
 <body>

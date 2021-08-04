@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.manish.model.FinishTask;
 import com.manish.model.Task;
@@ -59,8 +60,20 @@ public class AlertController {
 	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
 		System.out.println("AlertController.getAllTasks()");
+		Boolean isEmptyList =  false; 
 		final List<Task> list = dbService.getAllTasks();
-		model.addAttribute("taskList", list);
+		System.out.println(list.size()==0);
+		System.out.println(list.isEmpty());
+		System.out.println(list.size());
+		if(list.size()==0) {
+			System.out.println("list is empty");
+			isEmptyList = true;
+			model.addAttribute("message", "Congratulations! You Don't have pending task now");
+		}else {
+			isEmptyList = false;
+			model.addAttribute("taskList", list);
+		}
+		model.addAttribute("isEmptyList",isEmptyList);
 		return "pendingTasks";
 	}
 
@@ -112,6 +125,7 @@ public class AlertController {
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id, Model model) {
 		System.out.println("AlertController.finishTasks()");
+		String message = "Record with id "+id+" is deleted";
 		Task task = dbService.getTaskById(id);
 		FinishTask finishTask = new FinishTask();
 		finishTask.setTask1(task.getTask1());
@@ -123,7 +137,8 @@ public class AlertController {
 		dbService.deleteById(id);
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
-		return "finishTasks";
+		model.addAttribute("message",message);
+		return "redirect:pendingTasks";
 	}
 
 	@GetMapping("/getAllFinishTasks")

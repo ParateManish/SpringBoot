@@ -3,13 +3,13 @@
 <title>show All Data</title>
 </head>
 
-<h1>show All Data</h1>
 
-<form th:action="@{/task/allTaskByDate}" method="POST">
+<form th:action="@{/task/allTaskByDate}" method="POST" align="center">
+<h1>show All Data</h1>
 	Select Date :: <input type="date" name="taskDate">
 	<input type="submit" value="Get Tasks">
 </form>
-<a th:href="@{/task/home}">Back</a>
+<h3 style="text-align: center;color: blue"><a th:href="@{/task/home}">Back</a></h3>
 <br>
 <body>
 
