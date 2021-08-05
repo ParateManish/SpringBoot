@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
-<title>FINISHED TASK</title>
+<html lang="en">
+<head>
+  <html xmlns:th="https://www.thymeleaf.org/">
+ <title>FINISHED TASK</title>
+ <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<body>
+
+<nav class="navbar navbar-default">
+	<div class="navbar-header">
+		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+	</div>
+	<ul class="nav navbar-nav">
+      <li class="active"><a th:href="@{/task/home}">Home</a></li>
+      <li><a href="/task/addNewTask">Add New Task</a></li>
+      <li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+      <li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
+      <li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+</nav>
 
 <h1 style="text-align: center;color: blue">FINISHED TASK</h1>
 
 <form th:action="@{/task/finishTasks}" method="POST">
-	<table border="1" align="center">
+	<div class="container">
+	<table align="center" class="table">
 		<tr>
 			<th>Id</th>
 			<th>Task1</th>
@@ -24,18 +43,19 @@
 			<td th:text="${ob.task4}"></td>
 			<td th:text="${ob.finishTaskDate}"></td>
 			<td>
-				<a href="#">EDIT</a> |
-				<a th:href="@{/task/deleteFinishTask(id=${ob.id})}">DELETE</a> 
+				<a href="#">
+					<input type="button" value="EDIT" class="btn-primary">
+				</a>
+				<a th:href="@{/task/deleteFinishTask(id=${ob.id})}">
+					<input type="button" value="DELETE" class="btn-danger"></a>
+				</a> 
 			</td>
 		</tr>
-
-
 	</table>
+	</div>
 	<span><a href="${message}"></a></span>
 	<span><a href="${delete}"></a></span>
 </form>
-<h3 style="text-align: center"><a th:href="@{/task/home}">Home</a></h3>
-<br>
 <body>
 
 </body>

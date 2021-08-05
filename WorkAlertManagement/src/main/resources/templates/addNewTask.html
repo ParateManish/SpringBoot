@@ -1,27 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Task Page</title>
+  <html xmlns:th="https://www.thymeleaf.org/">
+ <title>Task Page</title>
+ <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
+<nav class="navbar navbar-default">
+	<div class="navbar-header">
+		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+	</div>
+	<ul class="nav navbar-nav">
+      <li class="active"><a th:href="@{/task/home}">Home</a></li>
+      <li><a href="/task/addNewTask">Add New Task</a></li>
+      <li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+      <li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
+      <li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+</nav>
+
 <body>
-<h1 style="text-align: center">Task Page</h1>
+
+<h1 style="text-align: center" class="#">Task Page</h1>
 <h1 style="text-align: center;color: green">Add Your Task </h1>
 <form th:action="@{/task/save}" method="POST" align="center">
-<pre>
-		Task 1 :: <input type="text" name="task1"/><br>
-		Task 2 :: <input type="text" name="task2"/><br>
-		Task 3 :: <input type="text" name="task3"/><br>
-		Task 4 :: <input type="text" name="task4"/><br>
-		<input type="submit" value="ADD NEW TASK">
-</pre>
+	<div class="container">
+		<table class="table">
+			<tr>
+				<td>Task 1 ::
+					<input type="text" name="task1"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Task 2 ::
+					<input type="text" name="task2"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Task 3 ::
+					<input type="text" name="task3"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Task 4 ::
+					<input type="text" name="task4"/>
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<input type="submit" value="ADD NEW TASK" class="btn-success">
+				</td>
+			</tr>	
+		</table>
+	</div>
 </form>
-<h3 style="text-align: center;">
-	<a th:href="@{/task/home/}">Home</a> |
-	<a href="/task/pendingTasks">Get All Pending Tasks</a> |
-	<a href="/task/pendingTaskByDate">Get Pending Task By Date</a> |
-	<a href="/task/getAllFinishTasks">Get Finished Tasks</a>
-</h3>	
 <h3 style="text-align: center;color: red"><span th:text="${errMessage}"></span></h3>
 <h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
 

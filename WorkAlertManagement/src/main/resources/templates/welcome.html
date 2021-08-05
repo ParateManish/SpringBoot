@@ -1,19 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>PENDING TASKS</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-
-<h1 style="text-align: center;color: blue">Home Page</h1>
-
-<h2 style="text-align: center">
-	<a href="/task/addNewTask">Add Your Task</a>
-</h2>
-
-<h2 style="text-align: center">
-	<a href="/task/pendingTasks">Get All Pending Tasks</a>
-</h2>
-
-<h2 style="text-align: center">
-	<a href="/task/pendingTaskByDate">Get Pending Task By Date</a>
-</h2>
-
-<h2 style="text-align: center">
-	<a href="/task/getAllFinishTasks">Get Finished Tasks</a>
-</h2>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a th:href="@{/task/home}">Home</a></li>
+			<li><a href="/task/addNewTask">Add New Task</a></li>
+			<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+			<li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
+			<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+	</nav>
+</body>
+</html>
