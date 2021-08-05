@@ -153,7 +153,7 @@ public class AlertController {
 		System.out.println("AlertController.getEditPage()");
 		System.out.println("edit id :: "+id);
 		Task task = dbService.getTaskById(id);
-
+		
 		model.addAttribute("task",task);
 
 		return "editPage";
@@ -165,6 +165,7 @@ public class AlertController {
 		System.out.println(task.toString());
 		task.setTaskDate(new Date());
 		task.setTaskModifiedDate(new Date());
+		System.out.println("Edited Task Data :: "+task.toString());
 		
 		final Integer id = dbService.addTask(task);
 		final String message = "Task " + id + " is Modified in TODO List";

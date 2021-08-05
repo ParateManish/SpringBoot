@@ -18,20 +18,40 @@
       <li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
       <li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
       <li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="/userLogin/home">Logout</a></li>
 </nav>
 
 <body>
-<h1 style="text-align: center">Edit Page</h1>
 <h1 style="text-align: center;color: green">Edit Your Task </h1>
-<form th:action="@{/task/edit}" method="POST" align="center">
-<pre>
-		Task Id :: <input type="text" name = "id" th:value ="${task.id}" readonly="readonly"/><br>
-		Task 1 :: <input type="text" name = "task1" th:value="${task.task1}"/><br>
-		Task 2 :: <input type="text" name = "task2" th:value="${task.task2}"/><br>
-		Task 3 :: <input type="text" name = "task3" th:value="${task.task3}"/><br>
-		Task 4 :: <input type="text" name = "task4" th:value="${task.task4}"/><br>
-		<input type="submit" value="EDIT">
-</pre>
+<form th:action="@{/task/edit}" method="POST" align="center"  class="form-inline">
+
+<table class="table table-hover table-bordered">
+
+	<div>
+		<label>Task Id :: </label>
+		<input type="number" name = "id" th:value ="${task.id}" readonly="readonly" class="form-control"/><br>
+	</div> <br>
+	<div>	
+		<label>Task 1 :: </label>
+		<input type="text" name = "task1" th:value="${task.task1}" class="form-control" placeholder="Edit Task1"/><br>
+	</div> <br>
+	<div>
+		<label>Task 2 :: </label>
+		<input type="text" name = "task2" th:value="${task.task2}" class="form-control" placeholder="Edit Task2"/><br>
+	</div> <br>
+	<div>
+		<label>Task 3 :: </label>
+		<input type="text" name = "task3" th:value="${task.task3}" class="form-control" placeholder="Edit Task3"/><br>
+	</div> <br>
+	<div>
+		<label>Task 4 :: </label>
+		<input type="text" name = "task4" th:value="${task.task4}" class="form-control" placeholder="Edit Task4"/><br>
+	</div> <br>	
+	<div>
+		<input type="submit" value="EDIT" class="btn btn-primary" >
+	</div> <br>	
+</table>
 </form>
 <h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
 </body>	

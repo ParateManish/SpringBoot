@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
+<nav class="container navbar navbar-default">
 	<div class="navbar-header">
 		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
 	</div>
@@ -18,20 +18,21 @@
       <li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
       <li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
       <li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="/userLogin/home">Logout</a></li>
 </nav>
-	
-
-<h1 style="text-align: center;color: red">PENDING TASKS</h1>
-
+<div class="container bg-primary text-red">
+		<h3 style="text-align: center" >Pending Tasks</h3>
+	</div><br>
+<div class="container "> 
 <div th:if="${isEmptyList}">
 <h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
 </div>
 
 <div th:unless="${isEmptyList}">
-<!-- 	<form th:action="@{/task/pendingTasks}" method="GET" align="center"> -->
 		<div class="container">
   <table class="table table-hover table-bordered">
-    <thead>
+    <thead class="bg-info">
       	<tr>
 			<th>Id</th>
 			<th>Task1</th>
@@ -54,17 +55,18 @@
 				<td th:text="${ob.taskModifiedDate}"></td>
 				<td>
 					<a th:href="@{/task/finishTasks(id=${ob.id})}">
-						<input type="button" value="DONE" class="btn-success">
+						<input type="button" value="DONE" class="btn btn-success">
 					</a>
 					<a th:href="@{/task/editPage(id=${ob.id})}">
-						<input type="button" value="EDIT" class="btn-primary">
+						<input type="button" value="EDIT" class="btn btn-primary">
 					</a>
 <!-- 					<a th:href="@{/task/editPage(id=${ob.id})}"><img src="/com/manish/controller/abc.jpg" style="width:20px;height:20px"></a> | -->
 					<a th:href="@{/task/deleteTask(id=${ob.id})}">
-						<input type="button" value="DELETE" class="btn-danger"></a>
+						<input type="button" value="DELETE" class="btn btn-danger"></a>
 					</a> 
 				</td>
 			</tr>
     </tbody>
   </table>
+  </div>
 </html>
