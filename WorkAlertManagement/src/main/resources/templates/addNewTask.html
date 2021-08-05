@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <html xmlns:th="https://www.thymeleaf.org/">
- <title>Task Page</title>
- <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<html xmlns:th="https://www.thymeleaf.org/">
+<title>Task Page</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <nav class="navbar navbar-default">
@@ -13,50 +15,56 @@
 		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
 	</div>
 	<ul class="nav navbar-nav">
-      <li class="active"><a th:href="@{/task/home}">Home</a></li>
-      <li><a href="/task/addNewTask">Add New Task</a></li>
-      <li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
-      <li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
-      <li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+		<li class="active"><a th:href="@{/task/home}">Home</a></li>
+		<li><a href="/task/addNewTask">Add New Task</a></li>
+		<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+		<li><a href="/task/pendingTaskByDate">Get Pending Task By
+				Date</a></li>
+		<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
 </nav>
 
 <body>
 
-<h1 style="text-align: center" class="#">Task Page</h1>
-<h1 style="text-align: center;color: green">Add Your Task </h1>
-<form th:action="@{/task/save}" method="POST" align="center">
-	<div class="container">
-		<table class="table">
-			<tr>
-				<td>Task 1 ::
-					<input type="text" name="task1"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Task 2 ::
-					<input type="text" name="task2"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Task 3 ::
-					<input type="text" name="task3"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Task 4 ::
-					<input type="text" name="task4"/>
-				</td>
-			</tr>
-			<tr>	
-				<td>
-					<input type="submit" value="ADD NEW TASK" class="btn-success">
-				</td>
-			</tr>	
+	<h1 style="text-align: center; color: green">Add Your Task</h1>
+	<form th:action="@{/task/save}" method="POST" class="form-inline"
+		align="center">
+		<table class="table table-hover table-bordered">
+			<div>
+				<label for="task1">Task1 ::</label> <input type="text"
+					class="form-control" id="task1" placeholder="Enter Task1"
+					name="task1">
+				<div>
+					<br>
+					<div>
+						<label for="task2">Task1 ::</label> <input type="text"
+							class="form-control" id="task2" placeholder="Enter Task2"
+							name="task2">
+					</div>
+					<br>
+					<div>
+						<label for="task3">Task1 ::</label> <input type="text"
+							class="form-control" id="task3" placeholder="Enter Task3"
+							name="task3">
+					</div>
+					<br>
+					<div>
+						<label for="task4">Task4 ::</label> <input type="text"
+							class="form-control" id="task4" placeholder="Enter Task4"
+							name="task4">
+					</div>
+					<br>
+					<div>
+						<input type="submit" value="ADD NEW TASK" class="btn btn-success">
+					</div>
 		</table>
-	</div>
-</form>
-<h3 style="text-align: center;color: red"><span th:text="${errMessage}"></span></h3>
-<h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
+		</div>
+	</form>
+	<h3 style="text-align: center; color: red">
+		<span th:text="${errMessage}"></span>
+	</h3>
+	<h3 style="text-align: center; color: teal">
+		<span th:text="${message}"></span>
+	</h3>
 
-</body>	
+</body>
 </html>

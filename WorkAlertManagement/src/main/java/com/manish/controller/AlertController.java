@@ -43,6 +43,7 @@ public class AlertController {
 	@PostMapping("/save")
 	public String addToTaskList(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.addToTaskListd()");
+		System.out.println("Task Object Data :: "+task.toString());
 		if (StringUtils.isBlank(task.getTask1()) && StringUtils.isBlank(task.getTask2())
 				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
 			model.addAttribute("errMessage", "Sorry Task is not Added,Please mention at Least 1 task in above");
