@@ -3,7 +3,9 @@ package com.manish.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class AlertController {
 	private DBService dbService;
 	@Autowired
 	private FinishTaskDBService finishDBService;
+	
+	private Map<Integer, Object> taskMap = new HashMap<>();
 
 	@RequestMapping("/home")
 	public String showHome() {
@@ -155,22 +159,27 @@ public class AlertController {
 		Task task = dbService.getTaskById(id);
 		
 		model.addAttribute("task",task);
-
+		taskMap.put(id, task);
 		return "editPage";
 	}
 	
 	@PostMapping("/edit")
 	public String editPage(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.editPage()");
+		if(taskMap.get(task.getId())!=null) {
+			Task taskObj = (Task) taskMap.get(task.getId());
+			
 		System.out.println(task.toString());
-		task.setTaskDate(new Date());
+		task.setTaskDate(taskObj.getTaskDate());
 		task.setTaskModifiedDate(new Date());
 		System.out.println("Edited Task Data :: "+task.toString());
 		
 		final Integer id = dbService.addTask(task);
 		final String message = "Task " + id + " is Modified in TODO List";
 		model.addAttribute("message", message);
-		return "editPage";
+			return "editPage";
+		}else
+			return "editPage";
 	}
 	
 	

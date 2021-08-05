@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
+<nav class="container navbar navbar-default" >
 	<div class="navbar-header">
 		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
 	</div>
@@ -22,21 +22,25 @@
       <li><a href="#">Profile</a></li>
       <li><a href="/userLogin/home">Logout</a></li>
 </nav>
-
-<h1 style="text-align: center;color: blue">FINISHED TASK</h1>
-
-<form th:action="@{/task/finishTasks}" method="POST">
+<div class="container bg-primary">
+		<h3 style="text-align: center" >Finished Task</h3>
+	</div><br>
+<div class="container">
+<!-- <form th:action="@{/task/finishTasks}" method="POST"> -->
 	<div class="container">
-	<table align="center" class="table">
+	<table class="table table-hover table-bordered text-center">
+	<thead class="bg-info text-danger">
 		<tr>
-			<th>Id</th>
-			<th>Task1</th>
-			<th>Task2</th>
-			<th>Task3</th>
-			<th>Task4</th>
-			<th>Finished Task Date</th>
-			<th>Operations</th>
+			<th class="text-center">Id</th>
+			<th class="text-center">Task1</th>
+			<th class="text-center">Task2</th>
+			<th class="text-center">Task3</th>
+			<th class="text-center">Task4</th>
+			<th class="text-center">Finished Task Date</th>
+			<th class="text-center">Operations</th>
 		</tr>
+		</thead>
+		<tbody>
 		<tr th:each="ob:${finishTaskList}">
 			<td th:text="${ob.id}"></td>
 			<td th:text="${ob.task1}"></td>
@@ -46,18 +50,20 @@
 			<td th:text="${ob.finishTaskDate}"></td>
 			<td>
 				<a href="#">
-					<input type="button" value="EDIT" class="btn-primary">
+					<input type="button" value="EDIT" class="btn btn-primary">&ensp;&ensp;
 				</a>
 				<a th:href="@{/task/deleteFinishTask(id=${ob.id})}">
-					<input type="button" value="DELETE" class="btn-danger"></a>
+					<input type="button" value="DELETE" class="btn btn-danger"></a>
 				</a> 
 			</td>
 		</tr>
+		</tbody>
 	</table>
 	</div>
 	<span><a href="${message}"></a></span>
 	<span><a href="${delete}"></a></span>
-</form>
+<!-- </form> -->
+</div>
 <body>
 
 </body>

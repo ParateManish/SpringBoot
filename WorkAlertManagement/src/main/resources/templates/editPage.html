@@ -8,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<nav class="navbar navbar-default">
+<nav class="container navbar navbar-default" >
 	<div class="navbar-header">
 		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
 	</div>
@@ -21,9 +21,11 @@
       <li><a href="#">Profile</a></li>
       <li><a href="/userLogin/home">Logout</a></li>
 </nav>
-
+	<div class="container bg-primary">
+		<h3 style="text-align: center" >Edit Your Task</h3>
+	</div><br>
+<div class="container bg-info" align="center">
 <body>
-<h1 style="text-align: center;color: green">Edit Your Task </h1>
 <form th:action="@{/task/edit}" method="POST" align="center"  class="form-inline">
 
 <table class="table table-hover table-bordered">
@@ -49,10 +51,17 @@
 		<input type="text" name = "task4" th:value="${task.task4}" class="form-control" placeholder="Edit Task4"/><br>
 	</div> <br>	
 	<div>
-		<input type="submit" value="EDIT" class="btn btn-primary" >
-	</div> <br>	
+		<input type="submit" value="EDIT" class="btn btn-primary" >&ensp;&ensp;&ensp;
+		<a th:href="@{/task/pendingTasks}" class="btn btn-danger">CANCEL</a>	
+	</div>
 </table>
 </form>
-<h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
 </body>	
+</div>
+<div th:if="${message!=null}" class="container">
+		<div class="alert alert-success" align="center">
+			<strong>Success!</strong><br>
+			<span th:text="${message}"></span>
+		</div>
+	</div>
 </html>

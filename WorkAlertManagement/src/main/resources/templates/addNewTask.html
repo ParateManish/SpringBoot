@@ -64,18 +64,18 @@
 					</div>
 		</table>
 	</form>
-	<div th:if="${errMessage!=null}">
+</body>
+</div>
+<div th:if="${errMessage!=null}" class="container">
 		<div class="alert alert-danger" align="center">
 			<strong>Error!</strong><br>
 			<span th:text="${errMessage}"></span>
 		</div>		
 	</div>
-	<div th:if="${message!=null}">
+	<div th:if="${message!=null}" class="container">
 		<div class="alert alert-success" align="center">
 			<strong>Success!</strong><br>
 			<span th:text="${message}"></span>
 		</div>
 	</div>
-</body>
-</div>
 </html>
