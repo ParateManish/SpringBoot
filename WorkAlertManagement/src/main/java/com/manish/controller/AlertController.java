@@ -30,6 +30,9 @@ public class AlertController {
 	@Autowired
 	private FinishTaskDBService finishDBService;
 	
+	@Autowired
+	private CustomLoginController customLoginController;
+	
 	private Map<Integer, Object> taskMap = new HashMap<>();
 
 	@RequestMapping("/home")
@@ -39,8 +42,9 @@ public class AlertController {
 	}
 
 	@RequestMapping("/addNewTask")
-	public String addToTaskList() {
+	public String addToTaskList(Model model) {
 		System.out.println("AlertController.addToTaskList()");
+		checkUserLogin(model);
 		return "addNewTask";
 	}
 
@@ -65,6 +69,7 @@ public class AlertController {
 	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
 		System.out.println("AlertController.getAllTasks()");
+		checkUserLogin(model);
 		Boolean isEmptyList =  false; 
 		final List<Task> list = dbService.getAllTasks();
 		if(list.size()==0) {
@@ -89,6 +94,7 @@ public class AlertController {
 	@PostMapping("/allTaskByDate")
 	public String getTaskByDate(@ModelAttribute Date date, Model model) throws ParseException {
 		System.out.println("AlertController.getTaskByDate()");
+		checkUserLogin(model);
 		System.out.println(date.toString());
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String strDate = formatter.format(date);
@@ -128,6 +134,7 @@ public class AlertController {
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id, Model model) {
 		System.out.println("AlertController.finishTasks()");
+		checkUserLogin(model);
 		String message = "Record with id "+id+" is deleted";
 		Task task = dbService.getTaskById(id);
 		FinishTask finishTask = new FinishTask();
@@ -147,6 +154,7 @@ public class AlertController {
 	@GetMapping("/getAllFinishTasks")
 	public String getAllFinishTasks(Model model) {
 		System.out.println("AlertController.getAllFinishTasks()");
+		checkUserLogin(model);
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
 		return "finishTasks";
@@ -182,5 +190,21 @@ public class AlertController {
 			return "editPage";
 	}
 	
+	private void checkUserLogin(Model model) {
+		System.out.println("AlertController.checkUserLogin()");
+		try {
+			customLoginController.checkUserLogin();
+		} catch (Exception e) {
+//			model.addAttribute("loginErrMsg","Please Login" );
+			propagateModelObjToUI(model);
+			System.out.println("AlertController.addToTaskList()-Exception "+e.getMessage());
+		}
+	}
 	
+	@GetMapping("/propagate")
+	private String propagateModelObjToUI(Model model) {
+		System.out.println("AlertController.propagateModelObjToUI()-START");
+		model.addAttribute("loginErrMsg","Please Login" );
+		return "loginPage";
+	}
 }
