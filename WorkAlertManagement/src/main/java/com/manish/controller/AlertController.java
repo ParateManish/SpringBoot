@@ -34,6 +34,8 @@ public class AlertController {
 	private CustomLoginController customLoginController;
 	
 	private Map<Integer, Object> taskMap = new HashMap<>();
+	
+	String resultPage = StringUtils.EMPTY;
 
 	@RequestMapping("/home")
 	public String showHome() {
@@ -44,8 +46,12 @@ public class AlertController {
 	@RequestMapping("/addNewTask")
 	public String addToTaskList(Model model) {
 		System.out.println("AlertController.addToTaskList()");
-		checkUserLogin(model);
+		resultPage = checkUserLogin(model);
+		if(!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
 		return "addNewTask";
+		
 	}
 
 	@PostMapping("/save")
@@ -69,6 +75,12 @@ public class AlertController {
 	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
 		System.out.println("AlertController.getAllTasks()");
+		
+		resultPage = checkUserLogin(model);
+		if(!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
+		
 		checkUserLogin(model);
 		Boolean isEmptyList =  false; 
 		final List<Task> list = dbService.getAllTasks();
@@ -94,6 +106,12 @@ public class AlertController {
 	@PostMapping("/allTaskByDate")
 	public String getTaskByDate(@ModelAttribute Date date, Model model) throws ParseException {
 		System.out.println("AlertController.getTaskByDate()");
+		
+		resultPage = checkUserLogin(model);
+		if(!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
+		
 		checkUserLogin(model);
 		System.out.println(date.toString());
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -134,6 +152,12 @@ public class AlertController {
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id, Model model) {
 		System.out.println("AlertController.finishTasks()");
+		
+		resultPage = checkUserLogin(model);
+		if(!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
+		
 		checkUserLogin(model);
 		String message = "Record with id "+id+" is deleted";
 		Task task = dbService.getTaskById(id);
@@ -154,6 +178,12 @@ public class AlertController {
 	@GetMapping("/getAllFinishTasks")
 	public String getAllFinishTasks(Model model) {
 		System.out.println("AlertController.getAllFinishTasks()");
+		
+		resultPage = checkUserLogin(model);
+		if(!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
+		
 		checkUserLogin(model);
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
@@ -190,19 +220,21 @@ public class AlertController {
 			return "editPage";
 	}
 	
-	private void checkUserLogin(Model model) {
+	private String checkUserLogin(Model model) {
 		System.out.println("AlertController.checkUserLogin()");
 		try {
 			customLoginController.checkUserLogin();
+			return null;
 		} catch (Exception e) {
 //			model.addAttribute("loginErrMsg","Please Login" );
-			propagateModelObjToUI(model);
+			String resultPage = propagateModelObjToUI(model);
 			System.out.println("AlertController.addToTaskList()-Exception "+e.getMessage());
+			return resultPage;
 		}
 	}
 	
 	@GetMapping("/propagate")
-	private String propagateModelObjToUI(Model model) {
+	public String propagateModelObjToUI(Model model) {
 		System.out.println("AlertController.propagateModelObjToUI()-START");
 		model.addAttribute("loginErrMsg","Please Login" );
 		return "loginPage";

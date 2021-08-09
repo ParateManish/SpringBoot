@@ -89,8 +89,12 @@ public class CustomLoginController {
 	
 	public void checkUserLogin() throws Exception {
 		System.out.println("CustomLoginController.checkUserLogin()-START");
-		String username = loginMap.get("username").toString();
-		if(StringUtils.isBlank(username)) {
+		String username = StringUtils.EMPTY;
+		if(loginMap.get("username")!=null) {
+			username = loginMap.get("username").toString();
+		}
+		System.out.println("Username :: "+username);
+		if(StringUtils.isBlank(username) || username==null) {
 			System.err.println("Please Login");
 			throw new Exception("Please Login");
 		}
