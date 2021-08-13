@@ -18,12 +18,16 @@ public class FinishTaskDBService {
 		return list;
 	}
 
-	public void addTask(FinishTask task) {
-		finishTasksRepo.save(task);
+	public Integer addTask(FinishTask task) {
+		return finishTasksRepo.save(task).getId();
 	}
 	
 	public void deleteById(Integer id) {
 		finishTasksRepo.deleteById(id);
+	}
+
+	public FinishTask getTaskById(Integer id) {
+		return finishTasksRepo.findById(id).get(); 
 	}
 	
 }

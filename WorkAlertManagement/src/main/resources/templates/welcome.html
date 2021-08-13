@@ -26,8 +26,19 @@
 			<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
 	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
 	</nav>
+	
+	<div th:if="${wishMsg!=null}" class="container">
+	<h4>
+		<div class="alert alert-info">
+			<span th:text="${wishMsg}"></span>
+			<strong th:text="${username}"></strong>, have a Great day Ahead
+			
+		</div>
+	</div>
+	</h4>
 </body>
-	<img src="/WorkAlertManagement/src/main/webapp/images/Home.jpg" alt="home" width="500" height="333">
+
+	<img src="/images/Home.jpg" alt="home" width="1300" height="500">
 </html>
 	<div th:if="${userNotLoginMsg!=null}" class="container">
 		<div class="alert alert-danger" align="center">

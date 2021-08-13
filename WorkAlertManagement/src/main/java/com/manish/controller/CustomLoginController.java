@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.manish.model.UserLogin;
 import com.manish.repository.IUserLoginRepository;
 import com.manish.service.UserLoginDBService;
+import com.manish.service.UserWishMessageService;
 
 @Controller
 @RequestMapping("/customUserLogin")
@@ -26,6 +27,9 @@ public class CustomLoginController {
 	
 	@Autowired
 	private IUserLoginRepository userRepo;
+	
+	@Autowired
+	private UserWishMessageService wmService;
 	
 	private Map<String, String> loginMap = new HashMap<String, String>();
 
@@ -72,7 +76,11 @@ public class CustomLoginController {
 			System.err.println("user not found");
 			throw new UsernameNotFoundException("User not found");
 		}else {
+			String userWishMessage = getUserWishMessage();
+			model.addAttribute("wishMsg",userWishMessage);
+			model.addAttribute("username",userDB.getUserName());
 			System.out.println("user is found :: "+userDB.toString());
+			
 		}
 
 		
@@ -109,5 +117,10 @@ public class CustomLoginController {
 		model.addAttribute("logoutMsg","You Logged Off");
 		System.out.println("mapObject after clear :: "+loginMap);
 		return "loginPage";
+	}
+	
+	private String getUserWishMessage() {
+		String wishMessage = wmService.getWishMessage();
+		return wishMessage;
 	}
 }

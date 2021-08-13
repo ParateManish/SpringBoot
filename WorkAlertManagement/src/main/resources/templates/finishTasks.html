@@ -40,6 +40,7 @@
 			<th class="text-center">Task3</th>
 			<th class="text-center">Task4</th>
 			<th class="text-center">Finished Task Date</th>
+			<th class="text-center">Task Modified Date</th>
 			<th class="text-center">Operations</th>
 		</tr>
 		</thead>
@@ -51,8 +52,9 @@
 			<td th:text="${ob.task3}"></td>
 			<td th:text="${ob.task4}"></td>
 			<td th:text="${ob.finishTaskDate}"></td>
+			<td th:text="${ob.taskModifiedDate}"></td>
 			<td>
-				<a href="#">
+				<a th:href="@{/task/editFinishPage(id=${ob.id})}">
 					<input type="button" value="EDIT" class="btn btn-primary">&ensp;&ensp;
 				</a>
 				<a th:href="@{/task/deleteFinishTask(id=${ob.id})}">

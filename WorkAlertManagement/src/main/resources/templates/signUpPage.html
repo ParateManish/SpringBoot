@@ -27,25 +27,28 @@
 	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
 	</nav>
 	
-<h1 style="text-align: center;color: threedface">SIGN UP</h1>
+<h1 style="text-align: center;color: threedface">SIGN UP</h1><br>
 
-<form th:action="@{/userLogin/saveUser}" method="POST" >
-	<table align="center">
-		<tr>
-			<td>username </td>
-			<td><input type="text" name="userName" required="required"></td>		
-		</tr>
-			<td>email </td>
-			<td><input type="text" name="email" required="required"></td>		
-		</tr>
-			<td>password </td>
-			<td><input type="password" name="password" required="required"></td>		
-		</tr>
-		<tr>
-			<td colspan="2" align="center"><input type="submit" value="SIGN UP">
-				<a th:href="@{/userLogin/home}"><input type="button" value="CANCEL"/></a>
-			</td>
-		</tr>
+<form th:action="@{/userLogin/saveUser}" method="POST" align="center" class="form-inline">
+<table class="table table-hover table-bordered">
+		<div>
+			<input type="text" class="form-control" id="userName" placeholder="Enter Username " name="userName" required="required">
+		</div><br>
+		<div>
+			<input type="text" class="form-control" id="email" placeholder="Enter Email " name="email" required="required">
+		</div><br>
+		<div>
+			<input type="password" class="form-control" id="password" placeholder="Enter Password " name="password">
+		</div><br>
+		<div>
+			<input type="number" class="form-control" id="mobile" placeholder="Enter Mobile Number" name="mobile">
+		</div><br>
+		<div>
+			<input type="gender" class="form-control" id="gender" placeholder="Select Gender " name="gender">
+		</div><br>
+		<div>
+		<input type="submit" value="SIGN UP" class="btn btn-info"/> &ensp;
+		</div>
 	</table>
 </form>
 </html>

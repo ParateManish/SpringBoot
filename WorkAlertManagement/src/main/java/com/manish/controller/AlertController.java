@@ -29,12 +29,12 @@ public class AlertController {
 	private DBService dbService;
 	@Autowired
 	private FinishTaskDBService finishDBService;
-	
+
 	@Autowired
 	private CustomLoginController customLoginController;
-	
+
 	private Map<Integer, Object> taskMap = new HashMap<>();
-	
+
 	String resultPage = StringUtils.EMPTY;
 
 	@RequestMapping("/home")
@@ -47,17 +47,17 @@ public class AlertController {
 	public String addToTaskList(Model model) {
 		System.out.println("AlertController.addToTaskList()");
 		resultPage = checkUserLogin(model);
-		if(!StringUtils.isBlank(resultPage)) {
+		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
 		return "addNewTask";
-		
+
 	}
 
 	@PostMapping("/save")
 	public String addToTaskList(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.addToTaskListd()");
-		System.out.println("Task Object Data :: "+task.toString());
+		System.out.println("Task Object Data :: " + task.toString());
 		if (StringUtils.isBlank(task.getTask1()) && StringUtils.isBlank(task.getTask2())
 				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
 			model.addAttribute("errMessage", "Sorry Task is not Added,Please mention at Least 1 task in above");
@@ -75,25 +75,25 @@ public class AlertController {
 	@GetMapping("/pendingTasks")
 	public String getAllTasks(Model model) {
 		System.out.println("AlertController.getAllTasks()");
-		
+
 		resultPage = checkUserLogin(model);
-		if(!StringUtils.isBlank(resultPage)) {
+		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
-		
+
 		checkUserLogin(model);
-		Boolean isEmptyList =  false; 
+		Boolean isEmptyList = false;
 		final List<Task> list = dbService.getAllTasks();
-		if(list.size()==0) {
+		if (list.size() == 0) {
 			System.out.println("list is empty");
 			isEmptyList = true;
 			model.addAttribute("message", "Congratulations! You Don't have pending task now");
-		}else {
+		} else {
 			isEmptyList = false;
 			System.out.println("list is not empty");
 			model.addAttribute("taskList", list);
 		}
-		model.addAttribute("isEmptyList",isEmptyList);
+		model.addAttribute("isEmptyList", isEmptyList);
 		return "pendingTasks";
 	}
 
@@ -106,12 +106,12 @@ public class AlertController {
 	@PostMapping("/allTaskByDate")
 	public String getTaskByDate(@ModelAttribute Date date, Model model) throws ParseException {
 		System.out.println("AlertController.getTaskByDate()");
-		
+
 		resultPage = checkUserLogin(model);
-		if(!StringUtils.isBlank(resultPage)) {
+		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
-		
+
 		checkUserLogin(model);
 		System.out.println(date.toString());
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -141,10 +141,11 @@ public class AlertController {
 		dbService.deleteById(id);
 		return "redirect:pendingTasks";
 	}
+
 	@GetMapping("/deleteFinishTask")
 	public String deleteFinishTask(@RequestParam("id") Integer id) {
 		System.out.println("AlertController.deleteFinishTask()");
-		System.out.println("Record is deleted with id "+id);
+		System.out.println("Record is deleted with id " + id);
 		finishDBService.deleteById(id);
 		return "redirect:getAllFinishTasks";
 	}
@@ -152,14 +153,14 @@ public class AlertController {
 	@GetMapping("/finishTasks")
 	public String finishTasks(@RequestParam("id") Integer id, Model model) {
 		System.out.println("AlertController.finishTasks()");
-		
+
 		resultPage = checkUserLogin(model);
-		if(!StringUtils.isBlank(resultPage)) {
+		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
-		
+
 		checkUserLogin(model);
-		String message = "Record with id "+id+" is deleted";
+		String message = "Record with id " + id + " is deleted";
 		Task task = dbService.getTaskById(id);
 		FinishTask finishTask = new FinishTask();
 		finishTask.setTask1(task.getTask1());
@@ -171,19 +172,19 @@ public class AlertController {
 		dbService.deleteById(id);
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
-		model.addAttribute("message",message);
+		model.addAttribute("message", message);
 		return "redirect:pendingTasks";
 	}
 
 	@GetMapping("/getAllFinishTasks")
 	public String getAllFinishTasks(Model model) {
 		System.out.println("AlertController.getAllFinishTasks()");
-		
+
 		resultPage = checkUserLogin(model);
-		if(!StringUtils.isBlank(resultPage)) {
+		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
-		
+
 		checkUserLogin(model);
 		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
 		model.addAttribute("finishTaskList", finishTaskList);
@@ -191,35 +192,36 @@ public class AlertController {
 	}
 
 	@GetMapping("/editPage")
-	public String getEditPage(@RequestParam("id") Integer id,Model model) {
-		System.out.println("AlertController.getEditPage()");
-		System.out.println("edit id :: "+id);
+	public String getEditPage(@RequestParam("id") Integer id, Model model) {
+		System.out.println("AlertController.getEditPage()-START");
+		System.out.println("edit id :: " + id);
 		Task task = dbService.getTaskById(id);
-		
-		model.addAttribute("task",task);
+		System.out.println("task Data :: "+task.toString());
+		model.addAttribute("task", task);
 		taskMap.put(id, task);
+		System.out.println("AlertController.getEditPage()-END");
 		return "editPage";
 	}
-	
+
 	@PostMapping("/edit")
 	public String editPage(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.editPage()");
-		if(taskMap.get(task.getId())!=null) {
+		if (taskMap.get(task.getId()) != null) {
 			Task taskObj = (Task) taskMap.get(task.getId());
-			
-		System.out.println(task.toString());
-		task.setTaskDate(taskObj.getTaskDate());
-		task.setTaskModifiedDate(new Date());
-		System.out.println("Edited Task Data :: "+task.toString());
-		
-		final Integer id = dbService.addTask(task);
-		final String message = "Task " + id + " is Modified in TODO List";
-		model.addAttribute("message", message);
+
+			System.out.println(task.toString());
+			task.setTaskDate(taskObj.getTaskDate());
+			task.setTaskModifiedDate(new Date());
+			System.out.println("Edited Task Data :: " + task.toString());
+
+			final Integer id = dbService.addTask(task);
+			final String message = "Task " + id + " is Modified in TODO List";
+			model.addAttribute("message", message);
 			return "editPage";
-		}else
+		} else
 			return "editPage";
 	}
-	
+
 	private String checkUserLogin(Model model) {
 		System.out.println("AlertController.checkUserLogin()");
 		try {
@@ -228,15 +230,47 @@ public class AlertController {
 		} catch (Exception e) {
 //			model.addAttribute("loginErrMsg","Please Login" );
 			String resultPage = propagateModelObjToUI(model);
-			System.out.println("AlertController.addToTaskList()-Exception "+e.getMessage());
+			System.out.println("AlertController.addToTaskList()-Exception " + e.getMessage());
 			return resultPage;
 		}
 	}
-	
+
 	@GetMapping("/propagate")
 	public String propagateModelObjToUI(Model model) {
 		System.out.println("AlertController.propagateModelObjToUI()-START");
-		model.addAttribute("loginErrMsg","Please Login" );
+		model.addAttribute("loginErrMsg", "Please Login");
 		return "loginPage";
 	}
+
+	@GetMapping("/editFinishPage")
+	public String getEditFinishPage(@RequestParam("id") Integer id, Model model) {
+		System.out.println("AlertController.getEditPage()-START");
+		System.out.println("edit id :: " + id);
+		FinishTask finishTask = finishDBService.getTaskById(id);
+		System.out.println("finishTask Data :: "+finishTask.toString());
+		model.addAttribute("finishTask", finishTask);
+		taskMap.put(id, finishTask);
+		System.out.println("AlertController.getEditPage()-END");
+		return "editPage";
+	}
+	
+	@PostMapping("/editFinishTask")
+	public String editFinishPage(@ModelAttribute FinishTask task, Model model) {
+		System.out.println("AlertController.editPage()");
+		if (taskMap.get(task.getId()) != null) {
+			FinishTask taskObj = (FinishTask) taskMap.get(task.getId());
+
+			System.out.println(task.toString());
+			task.setFinishTaskDate(task.getFinishTaskDate());
+			task.setTaskModifiedDate(new Date());
+			System.out.println("Edited Task Data :: " + task.toString());
+
+			final Integer id = finishDBService.addTask(task);
+			final String message = "Task " + id + " is Modified in Finish Task List";
+			model.addAttribute("message", message);
+			return "editPage";
+		} else
+			return "editPage";
+	}
+	
 }
