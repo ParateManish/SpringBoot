@@ -31,7 +31,7 @@ public class CustomLoginController {
 	@Autowired
 	private UserWishMessageService wmService;
 	
-	private Map<String, String> loginMap = new HashMap<String, String>();
+	public Map<String, String> loginMap = new HashMap<String, String>();
 
 	@GetMapping("/home")
 	public String getHomePage() {
@@ -123,4 +123,10 @@ public class CustomLoginController {
 		String wishMessage = wmService.getWishMessage();
 		return wishMessage;
 	}
+	
+	@GetMapping("/forget")
+	public String getEmailForgetPage() {
+		return "emailForgetpage";
+	}
+	
 }

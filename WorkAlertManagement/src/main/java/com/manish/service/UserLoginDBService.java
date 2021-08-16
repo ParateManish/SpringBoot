@@ -56,4 +56,13 @@ public class UserLoginDBService {
 		}
 		return map;
 	}
+
+	public UserLogin getUser(String username) {
+		UserLogin user = loginRepo.findByUserName(username);
+		return user;
+	}
+
+	public void updateUser(UserLogin user) {
+		loginRepo.save(user);
+	}
 }

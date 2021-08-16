@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<html xmlns:th="https://www.thymeleaf.org/">
+<title>Task Page</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<nav class=" navbar navbar-default">
+	<div class="navbar-header">
+		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+	</div>
+	<ul class="nav navbar-nav">
+		<li class="active"><a th:href="@{/task/home}">Home</a></li>
+		<li><a href="/task/addNewTask">Add New Task</a></li>
+		<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+		<li><a href="/task/pendingTaskByDate">Get Pending Task By
+				Date</a></li>
+		<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+		<li><a href="/profile/getProfile">Profile</a></li>
+		<!--     	  	<li><a href="/userLogin/home">Logout</a></li> -->
+		<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
+		<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
+		<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+</nav>
+
+
+<div class="container bg-primary">
+	<h3 style="text-align: center">Your Profile</h3>
+</div>
+<br>
+<div class="container bg-info" align="center">
+<body>
+<form th:action="@{/profile/update}" method="POST" class="form-inline"
+		align="center">
+		<table class="table table-hover table-bordered">
+			<div>
+				<label for="id">User Id ::</label> 
+				<input type="number" class="form-control" id="id"  name="id" th:value="${user.id}" readonly="readonly"/>
+			<div><br>
+			<div>
+				<label for="userName">Username ::</label> <input type="text" class="form-control" id="userName" name="userName" th:value="${user.userName}" readonly="readonly"/>
+			</div><br>
+			<div>
+				<label for="email">Email ::</label> <input type="email"	class="form-control" id="email" placeholder="Update Your Email"	name="email" th:value="${user.email}" />
+			</div><br>
+			<div>
+				<label for="mobile">Mobile ::</label> <input type="number" class="form-control" id="mobile" placeholder="Update Your Mobile" name="mobile" th:value="${user.mobile}" />
+			</div><br>
+			<div>
+				<label for="gender">Gender ::</label> <input type="text" class="form-control" th:value="${user.gender}" readonly="readonly"/>
+			</div><br>
+			<!-- <div>
+				<label for="admin">Gender ::</label> 
+				Male	<input type="radio" class="form-control" id="admin" name="admin" th:value="${user.admin}" />
+				Female	<input type="radio" class="form-control" id="admin" name="admin" th:value="${user.admin}" />
+			</div><br>
+			<div> -->
+			
+			
+			<div>
+			<fieldset data-role="controlgroup">
+		      	<label>Choose your gender:</label><br>
+			        <label for="male">Male</label>
+			        <input type="radio" name="gender" id="male" value="male">
+			        <label for="female">Female</label>
+			        <input type="radio" name="gender" id="female" value="female">
+      		</fieldset>
+			</div><br>
+			
+			
+				<input type="submit" value="Update Your Profile" class="btn btn-success">
+			</div>
+		</table>
+	</form>
+	</body>
+	</div><br>
+	<div th:if="${updateMsg!=null}" class="container">
+		<div class="alert alert-success" align="center">
+			<strong th:text="${user.userName}"></strong>
+			<span th:text="${updateMsg}"></span>
+		</div>		
+	</div>
+	
+</html>

@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
 <html xmlns:th="https://www.thymeleaf.org/">
-<title>Task Page</title>
+<title>Email Varification</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-
-
 <nav class=" navbar navbar-default" >
 		<div class="navbar-header">
 			<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
@@ -28,13 +26,23 @@
 	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
 	</nav>
 
-
-<h1 style="text-align: center;color: window">Welcome to Task Management System</h1>
-
-	<h2 style="text-align: center;">
-<!-- 		<a th:href="@{/userLogin/getLoginPage}">LOGIN </a>or -->
-		<a th:href="@{/login}">LOGIN </a><br>
-		<a th:href="@{/userLogin/getSignupPage}">SIGNUP</a>
-	</h2>
-<h3 style="text-align: center;color: navy"><span th:text="${message}"></span></h3>
-</html>
+	<body>
+		<div class="container bg-primary center">
+			<h3 style="text-align: center" >Email Varification</h3>
+		</div><br>
+		
+			<form th:action="@{#}" method="POST" class="form-inline" align="center">
+			<div>
+				<input type="text"
+					class="form-control" id="task4" placeholder="Enter Your Email"
+					name="#" required="required"/>
+			</div><br>
+			<div>
+					<input type="submit" value="Get OTP" class="btn btn-info">
+			</div>		
+			</form>
+			
+	</body>
+	
+	</html>
+	

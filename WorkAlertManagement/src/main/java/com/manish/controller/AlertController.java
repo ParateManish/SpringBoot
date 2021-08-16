@@ -222,7 +222,7 @@ public class AlertController {
 			return "editPage";
 	}
 
-	private String checkUserLogin(Model model) {
+	public String checkUserLogin(Model model) {
 		System.out.println("AlertController.checkUserLogin()");
 		try {
 			customLoginController.checkUserLogin();

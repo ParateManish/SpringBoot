@@ -32,6 +32,9 @@ public class UserLogin {
 	@Column(name = "gender",length = 6)
 	private String gender;
 	
+	@Column(name = "admin")
+	private Boolean admin;
+	
 	@Column
 	private boolean enabled;
 	
