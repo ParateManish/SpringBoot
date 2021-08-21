@@ -64,5 +64,6 @@ public class UserLoginDBService {
 
 	public void updateUser(UserLogin user) {
 		loginRepo.save(user);
+		System.out.println("User is saved Successfully");
 	}
 }

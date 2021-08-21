@@ -45,7 +45,7 @@ public class AlertController {
 
 	@RequestMapping("/addNewTask")
 	public String addToTaskList(Model model) {
-		System.out.println("AlertController.addToTaskList()");
+   		System.out.println("AlertController.addToTaskList()");
 		resultPage = checkUserLogin(model);
 		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
@@ -273,4 +273,30 @@ public class AlertController {
 			return "editPage";
 	}
 	
+	@GetMapping("/singleFinishTasks")
+	public String singleFinishTasks(@RequestParam("id") Integer id, Model model) {
+		System.out.println("AlertController.finishTasks()");
+
+		resultPage = checkUserLogin(model);
+		if (!StringUtils.isBlank(resultPage)) {
+			return resultPage;
+		}
+
+		checkUserLogin(model);
+		String message = "Record with id " + id + " is deleted";
+		Task task = dbService.getTaskById(id);
+		FinishTask finishTask = new FinishTask();
+		finishTask.setTask1(task.getTask1());
+		finishTask.setTask2(task.getTask2());
+		finishTask.setTask3(task.getTask3());
+		finishTask.setTask4(task.getTask4());
+		finishTask.setFinishTaskDate(new Date());
+		finishDBService.addTask(finishTask);
+		dbService.deleteById(id);
+		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
+		model.addAttribute("finishTaskList", finishTaskList);
+		model.addAttribute("message", message);
+		
+		return "redirect:pendingTasks";
+	}
 }

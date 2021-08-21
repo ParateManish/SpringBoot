@@ -59,7 +59,12 @@ public class ProfileController {
 	
 	@PostMapping("/update")
 	public String updateUserProfile(@ModelAttribute UserLogin user , Model model) {
-		
+		String userRole = StringUtils.EMPTY;
+		if(user.getIsAdmin() != null && user.getIsAdmin().equals("1"))
+			userRole = "User and Admin";
+		else
+			userRole = "User only";
+		user.setIsAdmin(userRole);
 		dbService.updateUser(user);
 		model.addAttribute("updateMsg","Your Profile is Updated");
 		model.addAttribute("user",user);

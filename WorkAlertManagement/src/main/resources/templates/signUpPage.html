@@ -32,20 +32,39 @@
 <form th:action="@{/userLogin/saveUser}" method="POST" align="center" class="form-inline">
 <table class="table table-hover table-bordered">
 		<div>
-			<input type="text" class="form-control" id="userName" placeholder="Enter Username " name="userName" required="required">
+			<label for="userName">Username ::</label> 
+			 <input type="text" class="form-control" id="userName" placeholder="Enter Username " name="userName" required="required">
 		</div><br>
-		<div>
+		<div>	
+			<label for="email">Email ::</label>
 			<input type="text" class="form-control" id="email" placeholder="Enter Email " name="email" required="required">
 		</div><br>
 		<div>
+			<label for="password">Password ::</label>
 			<input type="password" class="form-control" id="password" placeholder="Enter Password " name="password">
 		</div><br>
 		<div>
+			<label for="mobile">Mobile ::</label>
 			<input type="number" class="form-control" id="mobile" placeholder="Enter Mobile Number" name="mobile">
 		</div><br>
 		<div>
-			<input type="gender" class="form-control" id="gender" placeholder="Select Gender " name="gender">
-		</div><br>
+			<fieldset data-role="controlgroup">
+		      	<label>Choose your gender:</label><br>
+			        <label for="male">Male</label>
+			        <input type="radio" name="gender" id="male" value="Male" checked>
+			        <label for="female">Female</label>
+			        <input type="radio" name="gender" id="female" value="Female">
+      		</fieldset>
+			</div><br>
+		<div>
+			<fieldset data-role="controlgroup">
+		      	<label>Choose your Role:</label><br>
+			        <label for="isAdmin">Admin and User</label>
+			        <input type="radio" name="isAdmin" id="admin" value="Admin and User">
+			        <label for="isAdmin">User Only</label>
+			        <input type="radio" name="isAdmin" id="userOnly" value="User only" checked>
+      		</fieldset>
+			</div><br>
 		<div>
 		<input type="submit" value="SIGN UP" class="btn btn-info"/> &ensp;
 		</div>

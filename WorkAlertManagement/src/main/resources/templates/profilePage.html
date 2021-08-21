@@ -52,23 +52,29 @@
 				<label for="mobile">Mobile ::</label> <input type="number" class="form-control" id="mobile" placeholder="Update Your Mobile" name="mobile" th:value="${user.mobile}" />
 			</div><br>
 			<div>
+				<label for="isAdmin">Role ::</label> <input type="text" class="form-control" id="isAdmin" th:value="${user.isAdmin}" readonly="readonly"/>
+			</div><br>
+			<div>
+			<fieldset data-role="controlgroup">
+		      	<label>Choose your Role:</label><br>
+			        <label for="adminAndUser">Admin and User</label>
+			        <input type="radio" name="isAdmin" id="admin" value="Admin and User">
+			        <label for="user">User Only</label>
+			        <input type="radio" name="isAdmin" id="userOnly" value="User Only" checked>
+      		</fieldset>
+			</div><br>
+			
+			<div>
 				<label for="gender">Gender ::</label> <input type="text" class="form-control" th:value="${user.gender}" readonly="readonly"/>
 			</div><br>
-			<!-- <div>
-				<label for="admin">Gender ::</label> 
-				Male	<input type="radio" class="form-control" id="admin" name="admin" th:value="${user.admin}" />
-				Female	<input type="radio" class="form-control" id="admin" name="admin" th:value="${user.admin}" />
-			</div><br>
-			<div> -->
-			
 			
 			<div>
 			<fieldset data-role="controlgroup">
 		      	<label>Choose your gender:</label><br>
 			        <label for="male">Male</label>
-			        <input type="radio" name="gender" id="male" value="male">
+			        <input type="radio" name="gender" id="male" value="Male" checked>
 			        <label for="female">Female</label>
-			        <input type="radio" name="gender" id="female" value="female">
+			        <input type="radio" name="gender" id="female" value="Female">
       		</fieldset>
 			</div><br>
 			

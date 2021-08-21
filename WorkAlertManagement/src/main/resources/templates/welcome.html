@@ -25,7 +25,15 @@
 			<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
 			<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
 	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+	      	<li><a href="/learner/showSubjectPage">To Learn</a></li>
+	      	<li><a href="/learner/getAllSubjects">TODO Subjects List</a></li>
 	</nav>
+	
+		<nav class=" navbar navbar-default" >
+			<ul class="nav navbar-nav">
+	      		<li><a href="#">Users List</a></li>
+	      	</ul>
+		</nav>
 	
 	<div th:if="${wishMsg!=null}" class="container">
 	<h4>

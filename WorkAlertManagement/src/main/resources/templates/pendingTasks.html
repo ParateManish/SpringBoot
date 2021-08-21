@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PENDING TASKS</title>
- <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>PENDING TASKS</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
 
-<nav class=" navbar navbar-default" >
+<body>
+	<nav class=" navbar navbar-default">
 		<div class="navbar-header">
 			<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
 		</div>
@@ -19,77 +21,94 @@
 			<li><a href="/task/pendingTaskByDate">Get Pending Task By Date</a></li>
 			<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
 			<li><a href="/profile/getProfile">Profile</a></li>
-<!--     	  	<li><a href="/userLogin/home">Logout</a></li> -->
 			<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
 			<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
-	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+			<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+		</ul>
 	</nav>
-<div class="container bg-primary text-danger">
-		<h3 style="text-align: center" >Pending Tasks</h3>
-	</div><br>
-<div class="container "> 
-<div th:if="${isEmptyList}">
-<h3 style="text-align: center;color: teal"><span th:text="${message}"></span></h3>
-</div>
+	
+	<div class="container bg-primary text-danger">
+		<h3 style="text-align: center">Pending Tasks</h3>
+	</div>
+	<br>
+	
+	<div class="container ">
+		<div th:if="${isEmptyList}">
+			<h3 style="text-align: center; color: teal">
+				<span th:text="${message}"></span>
+			</h3>
+		</div>
 
-<div th:unless="${isEmptyList}">
-		<div class="container">
-  <table class="table table-hover table-bordered text-center">
-    <thead class="bg-info text-danger">
-    	<tr>
-			<th class="text-center">Id</th>
-			<th class="text-center">Task1</th>
-			<th class="text-center">Task2</th>
-			<th class="text-center">Task3</th>
-			<th class="text-center">Task4</th>
-			<th class="text-center">Task Date</th>
-			<th class="text-center">Task Modified Date</th>
-			<th class="text-center">Operations</th>
-		</tr>
-		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th class="text-center">
-				<input type="button" value="DONE" class="btn btn-success"/>	|
-				<input  type="button" value="EDIT" class="btn btn-primary"/>	|
-				<input type="button" value="DELETE" class="btn btn-danger"/>
-			
-			</th>
-			
-<!-- 			<th class="text-center">DONE | EDIT | DELETE</th> -->
-		</tr>
-    </thead>
-    <tbody>
-      <tr th:each="ob:${taskList}">
-				<td th:text="${ob.id}"></td>
-				<td th:text="${ob.task1}"></td>
-				<td th:text="${ob.task2}"></td>
-				<td th:text="${ob.task3}"></td>
-				<td th:text="${ob.task4}"></td>
-				<td th:text="${ob.taskDate}"></td>
-				<td th:text="${ob.taskModifiedDate}"></td>
-				<td>
-					<a th:href="@{/task/finishTasks(id=${ob.id})}">
-<!-- 						<input type="button" value="DONE" class="btn btn-success"> -->
-					<img src="/images/doneButton.jpg" alt="edit" width="25" height="25">	&ensp;&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;&ensp;
-					</a>
-					<a th:href="@{/task/editPage(id=${ob.id})}">
-					<img src="/images/editButton.png" alt="edit" width="20" height="20">	&ensp;&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;&ensp;
-<!-- 						<input  type="button" value="EDIT" class="btn btn-primary">&ensp;&ensp; -->
-					</a>
-<!-- 					<a th:href="@{/task/editPage(id=${ob.id})}"><img src="/com/manish/controller/abc.jpg" style="width:20px;height:20px"></a> | -->
-					<a th:href="@{/task/deleteTask(id=${ob.id})}">
-					<img src="/images/deleteButton.jpg" alt="edit" width="25" height="25">
-<!-- 						<input type="button" value="DELETE" class="btn btn-danger"></a> -->
-					</a> 
-				</td>
-			</tr>
-    </tbody>
-  </table>
-  </div>
+		<div th:unless="${isEmptyList}">
+			<div class="container">
+				<table class="table table-hover table-bordered text-center">
+					<thead class="bg-info text-danger">
+						<tr>
+							<th class="text-center">Id</th>
+							<th class="text-center" width="120">Task1</th>
+							<th class="text-center" width="2">Delete</th>
+							<th class="text-center" width="120">Task2</th>
+							<th class="text-center" width="2">Delete</th>
+							<th class="text-center" width="120">Task3</th>
+							<th class="text-center" width="2">Delete</th>
+							<th class="text-center" width="120">Task4</th>
+							<th class="text-center" width="2">Delete</th>
+							<th class="text-center" width="120">Task Date</th>
+							<th class="text-center" width="120">Task Modified Date</th>
+							<th class="text-center" width="400">Operations</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th class="text-center">
+								<input type="button" value="DONE" class="btn btn-success" /> | 
+								<input type="button" value="EDIT" class="btn btn-primary" /> | 
+								<input type="button" value="DELETE" class="btn btn-danger" />
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="ob:${taskList}">
+							<td th:text="${ob.id}"></td>
+							<td th:text="${ob.task1}"></td>
+							<td>
+								<a th:href="@{/task/singleFinishTasks(id=${ob.id})}">
+									<img src="/images/doneButton.jpg" alt="edit" width="25"
+									height="25">
+								</a>
+							</td>
+							<td th:text="${ob.task2}"></td>
+							<td></td>
+							<td th:text="${ob.task3}"></td>
+							<td></td>
+							<td th:text="${ob.task4}"></td>
+							<td></td>
+							<td th:text="${ob.taskDate}"></td>
+							<td th:text="${ob.taskModifiedDate}"></td>
+							<td>
+								<a th:href="@{/task/finishTasks(id=${ob.id})}"> 
+									<img src="/images/doneButton.jpg" alt="edit" width="25" height="25">&ensp;&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;&ensp;
+								</a> 
+								<a th:href="@{/task/editPage(id=${ob.id})}"> 
+									<img src="/images/editButton.png" alt="edit" width="20" height="20"> &ensp;&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;&ensp;
+								</a> 
+								<a th:href="@{/task/deleteTask(id=${ob.id})}"> 
+									<img src="/images/deleteButton.jpg" alt="edit" width="25" height="25" onclick="return confirm('Are you sure you want to delete this item?')">
+									
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 </html>
