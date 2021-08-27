@@ -19,20 +19,20 @@ public class UserLoginDBService {
 
 	@Autowired
 	private IUserLoginRepository loginRepo;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public void saveUser(@ModelAttribute UserLogin user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		
+
 		String randomCode = RandomString.make(64);
 //		user.setVerificationCode(randomCode);
 //		user.setEnabled(false);
 		user.setEnabled(true);
 		loginRepo.save(user);
-		
+
 //		sendVerificationEmail(user, siteURL);
 	}
 
@@ -41,7 +41,7 @@ public class UserLoginDBService {
 		String message = StringUtils.EMPTY;
 //		UserLogin user = loginRepo.findByUserNameAndPassword(userName,password);
 		UserLogin user = loginRepo.findByUserName(userName);
-		
+
 		if (user != null) {
 			System.out.println("user is not null");
 			if (!StringUtils.equals(user.getPassword(), password)) {

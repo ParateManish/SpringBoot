@@ -12,7 +12,7 @@ import com.manish.repository.IFinishTasksRepository;
 public class FinishTaskDBService {
 	@Autowired
 	private IFinishTasksRepository finishTasksRepo;
-	
+
 	public List<FinishTask> getAllFinishTasks() {
 		List<FinishTask> list = finishTasksRepo.findAll();
 		return list;
@@ -21,13 +21,17 @@ public class FinishTaskDBService {
 	public Integer addTask(FinishTask task) {
 		return finishTasksRepo.save(task).getId();
 	}
-	
+
 	public void deleteById(Integer id) {
 		finishTasksRepo.deleteById(id);
 	}
 
 	public FinishTask getTaskById(Integer id) {
-		return finishTasksRepo.findById(id).get(); 
+		return finishTasksRepo.findById(id).get();
 	}
-	
+
+	public void deleteChecklist(List<FinishTask> finishTaskChecklist) {
+		finishTasksRepo.deleteAll(finishTaskChecklist);
+	}
+
 }

@@ -16,26 +16,26 @@ public class UserLogin {
 	@GeneratedValue
 	@Column(name = "user_id")
 	private Integer id;
-	
-	@Column(name = "user_name",length = 40,unique = true)
+
+	@Column(name = "user_name", length = 40, unique = true)
 	private String userName;
-	
-	@Column(name = "pass",length = 70)
+
+	@Column(name = "pass", length = 70)
 	private String password;
-	
-	@Column(name = "email",length = 40)
+
+	@Column(name = "email", length = 40)
 	private String email;
-	
-	@Column(name = "mobile",length = 10)
+
+	@Column(name = "mobile", length = 10)
 	private long mobile;
-	
-	@Column(name = "gender",length = 6)
+
+	@Column(name = "gender", length = 6)
 	private String gender;
-	
+
 	@Column(name = "isAdmin")
 	private String isAdmin;
-	
+
 	@Column
 	private boolean enabled;
-	
+
 }

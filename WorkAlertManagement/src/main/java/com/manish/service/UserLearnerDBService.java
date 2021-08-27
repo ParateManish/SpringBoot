@@ -11,21 +11,20 @@ import com.manish.repository.IUserLearnerRepository;
 
 @Service
 public class UserLearnerDBService {
-	
+
 	@Autowired
 	private IUserLearnerRepository repo;
-	
-	public String saveSubject (Subject subject) {
+
+	public String saveSubject(Subject subject) {
 		String returnValue = StringUtils.EMPTY;
 		Integer id = repo.save(subject).getId();
-		if(id!=null)
-			returnValue = subject.getSubjectName()+" Subject is Added";
+		if (id != null)
+			returnValue = subject.getSubjectName() + " Subject is Added";
 		return returnValue;
 	}
 
 	public List<Subject> getAllSubjectLists() {
 		return repo.findAll();
 	}
-	
-	
+
 }

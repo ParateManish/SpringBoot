@@ -19,10 +19,28 @@ import com.manish.service.UserLoginDBService;
 @RequestMapping("/profile")
 public class ProfileController {
 
+	// BELOW ARE THE CONSTANTS FOR THE URL
+	private static final String GET_PROFILE_URL = "/getProfile";
+	private static final String UPDATE_URL = "/update";
+
+	// BELOW ARE THE CONSTANTS FOR THE HTML PAGE
+	private static final String PROFILE_PAGE = "profilePage";
+
+	// BELOW ARE THE CONSTANTS FOR THE MODEL ATTRIBUTE
+	private static final String UPDATE_MSG = "updateMsg";
+	private static final String USER = "user";
+
+	// OTHER CONSTANTS
+	private static final String USERNAME = "username";
+	private static final String USER_AND_ADMIN = "User and Admin";
+	private static final String USER_ONLY = "User only";
+
 	private UserLoginDBService dbService;
 	private CustomLoginController customLoginController;
-	private  AlertController alertController;
-	
+	private AlertController alertController;
+
+	public Map<String, String> map = new HashMap<String, String>();
+
 	@Autowired
 	public ProfileController(UserLoginDBService dbService, CustomLoginController customLoginController,
 			AlertController alertController) {
@@ -32,43 +50,41 @@ public class ProfileController {
 		this.alertController = alertController;
 	}
 
-	public Map<String, String> map = new HashMap<String, String>();
-	
-	@GetMapping("/getProfile")
+	@GetMapping(GET_PROFILE_URL)
 	public String getProfile(Model model) {
-		
+
 		String resultPage = alertController.checkUserLogin(model);
 		if (!StringUtils.isBlank(resultPage)) {
 			return resultPage;
 		}
-		
+
 		UserLogin user = dbService.getUser(getUsername());
-		model.addAttribute("user",user);
-		return "profilePage";
+		model.addAttribute(USER, user);
+		return PROFILE_PAGE;
 	}
 
 	private String getUsername() {
 		map = customLoginController.loginMap;
 		String username = StringUtils.EMPTY;
 
-		if (map.get("username") != null) {
-			username = map.get("username").toString();
+		if (map.get(USERNAME) != null) {
+			username = map.get(USERNAME).toString();
 		}
 		return username;
 	}
-	
-	@PostMapping("/update")
-	public String updateUserProfile(@ModelAttribute UserLogin user , Model model) {
+
+	@PostMapping(UPDATE_URL)
+	public String updateUserProfile(@ModelAttribute UserLogin user, Model model) {
 		String userRole = StringUtils.EMPTY;
-		if(user.getIsAdmin() != null && user.getIsAdmin().equals("1"))
-			userRole = "User and Admin";
+		if (user.getIsAdmin() != null && user.getIsAdmin().equals("1"))
+			userRole = USER_AND_ADMIN;
 		else
-			userRole = "User only";
+			userRole = USER_ONLY;
 		user.setIsAdmin(userRole);
 		dbService.updateUser(user);
-		model.addAttribute("updateMsg","Your Profile is Updated");
-		model.addAttribute("user",user);
-		return "profilePage";
+		model.addAttribute(UPDATE_MSG, "Your Profile is Updated");
+		model.addAttribute(USER, user);
+		return PROFILE_PAGE;
 	}
-	
+
 }

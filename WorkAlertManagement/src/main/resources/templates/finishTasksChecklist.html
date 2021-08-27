@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <html xmlns:th="https://www.thymeleaf.org/">
- <title>FINISHED TASK</title>
+ <title>FINISHED TASK CHECKLIST</title>
  <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -26,10 +26,7 @@
 	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
 	</nav>
 <div class="container bg-primary">
-		<h3 style="text-align: center" >Finished Task</h3>
-		<a th:href="@{#}">
-					<p align="right"><input type="button" value="CHECKLIST" class="btn btn-warning"></a></p>
-				</a> 
+		<h3 style="text-align: center" >FINISHED TASK CHECKLIST</h3>
 	</div><br>
 <div class="container">
 <!-- <form th:action="@{/task/finishTasks}" method="POST"> -->
@@ -44,11 +41,11 @@
 			<th class="text-center" width="130">Task4</th>
 			<th class="text-center" width="130">Finished Task Date</th>
 			<th class="text-center" width="130">Task Modified Date</th>
-			<th class="text-center" width="400">Operations</th>
+			<th class="text-center" >Operations</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="ob:${finishTaskList}">
+		<tr th:each="ob:${finishTaskChecklist}">
 			<td th:text="${ob.id}"></td>
 			<td th:text="${ob.task1}"></td>
 			<td th:text="${ob.task2}"></td>
@@ -57,8 +54,8 @@
 			<td th:text="${ob.finishTaskDate}"></td>
 			<td th:text="${ob.taskModifiedDate}"></td>
 			<td>
-				<a th:href="@{/task/addToChecklist(id=${ob.id})}">
-					<input type="button" value="ADD TO CHECKLIST" class="btn btn-warning">&ensp;&ensp;
+				<a th:href="@{/task/selectedFinishTasks(id=${ob.id})}">
+					<input type="checkbox"/>add
 				</a>
 			
 				<a th:href="@{/task/editFinishPage(id=${ob.id})}">
