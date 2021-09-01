@@ -27,4 +27,7 @@ public class Subject {
 
 	@Temporal(TemporalType.DATE)
 	private Date targetDate;
+	
+	@Column
+	private String details;
 }

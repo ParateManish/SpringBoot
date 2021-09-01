@@ -70,6 +70,7 @@ public class AlertController {
 	private static final String SINGLE_FINISH_TASK_URL = "/singleFinishTasks";
 	private static final String DELETE_FINISH_TASK_CHECKLIST_URL = "/deleteFinishTaskChecklist";
 	private static final String ADD_TO_CHECKLIST_URL = "/addToChecklist";
+	private static final String GET_FINISH_TASK_CHECKLIST = "/getFinishTaskChecklist";
 
 	private DBService dbService;
 	private FinishTaskDBService finishDBService;
@@ -354,6 +355,12 @@ public class AlertController {
 		return FINISH_TASK_CHECKLIST;
 	}
 
+	@GetMapping(GET_FINISH_TASK_CHECKLIST)
+	public String getCheckList(Model model) {
+		model.addAttribute(FINISH_TASK_CHECKLIST,finishTaskChecklist);
+		return FINISH_TASK_CHECKLIST;
+	}
+	
 	@GetMapping(ADD_TO_CHECKLIST_URL)
 	public String addToChecklist(@RequestParam("id") Integer id, Model model) {
 		FinishTask task = finishDBService.getTaskById(id);

@@ -35,6 +35,7 @@
 			<th class="text-center" width="200">Subject</th>
 			<th class="text-center" width="200">Start Date</th>
 			<th class="text-center" width="200">Target Date</th>
+			<th class="text-center" width="200">Details</th>
 		</tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
 				<td th:text="${ob.subjectName}"></td>
 				<td th:text="${ob.startDate}"></td>
 				<td th:text="${ob.targetDate}"></td>
+				<td><a th:href="${ob.details}">Details</a></td>
 			</tr>
     </tbody>
   </table>
