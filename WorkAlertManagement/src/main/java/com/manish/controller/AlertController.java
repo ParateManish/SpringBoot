@@ -41,6 +41,7 @@ public class AlertController {
 	private static final String EDIT_PAGE = "editPage";
 	private static final String LOGIN_PAGE = "loginPage";
 	private static final String MESSAGE = "message";
+	private static final String STATUS_PAGE = "statusPage";
 
 	// BELOW ARE CONSTATNTS FOR MODEL ATTRIBUTE
 	private static final String ERR_MESSAGE = "errMessage";
@@ -71,6 +72,7 @@ public class AlertController {
 	private static final String DELETE_FINISH_TASK_CHECKLIST_URL = "/deleteFinishTaskChecklist";
 	private static final String ADD_TO_CHECKLIST_URL = "/addToChecklist";
 	private static final String GET_FINISH_TASK_CHECKLIST = "/getFinishTaskChecklist";
+	private static final String GET_STATUS = "/getStatus";
 
 	private DBService dbService;
 	private FinishTaskDBService finishDBService;
@@ -115,10 +117,36 @@ public class AlertController {
 			return ADD_NEW_TASK;
 
 		}
-		task.setTaskDate(new Date());
-		task.setTaskModifiedDate(new Date());
-		final Integer id = dbService.addTask(task);
-		final String message = "Task " + id + " is Added in TODO List";
+		
+		List<Task> taskList = new ArrayList<Task>();
+		List<String> taskStrList = new ArrayList<String>();
+		if(StringUtils.isNotBlank(task.getTask1()))
+			taskStrList.add(task.getTask1());
+		if(StringUtils.isNotBlank(task.getTask2()))
+			taskStrList.add(task.getTask2());
+		if(StringUtils.isNotBlank(task.getTask3()))
+			taskStrList.add(task.getTask3());
+		if(StringUtils.isNotBlank(task.getTask4()))
+			taskStrList.add(task.getTask4());
+		
+		for(String taskName : taskStrList) {
+			Task tsk = new Task();
+			tsk.setTask1(taskName);
+			tsk.setTaskDate(new Date());
+			tsk.setTaskModifiedDate(new Date());
+			taskList.add(tsk);
+		}
+		
+//		task.setTaskDate(new Date());
+//		task.setTaskModifiedDate(new Date());
+//		final Integer id = dbService.addTask(task);
+		dbService.addAllTask(taskList);
+		String message = StringUtils.EMPTY;
+		if(taskList.size()==1) 
+			message = "Task is Added in TODO List";
+		else
+			message = "Tasks are Added in TODO List";
+			
 		model.addAttribute(MESSAGE, message);
 		return ADD_NEW_TASK;
 	}
@@ -367,6 +395,11 @@ public class AlertController {
 		finishTaskChecklist.add(task);
 		model.addAttribute(FINISH_TASK_CHECKLIST, finishTaskChecklist);
 		return REDIRECT + GET_ALL_FINISH_TASKS;
+	}
+	
+	@GetMapping(GET_STATUS)
+	public String getStatus() {
+		return STATUS_PAGE;
 	}
 
 }

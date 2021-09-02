@@ -18,6 +18,10 @@ public class DBService {
 		return taskRepo.save(task).getId();
 	}
 
+	public void addAllTask(List<Task> taskList) {
+		taskRepo.saveAll(taskList);
+	}
+	
 	public List<Task> getAllTasks() {
 		return taskRepo.findAll();
 	}
