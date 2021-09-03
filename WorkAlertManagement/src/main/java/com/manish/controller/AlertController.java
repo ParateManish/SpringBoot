@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.manish.model.DateAndStatusTaskPropagator;
 import com.manish.model.FinishTask;
 import com.manish.model.Task;
 import com.manish.service.DBService;
@@ -73,6 +74,7 @@ public class AlertController {
 	private static final String ADD_TO_CHECKLIST_URL = "/addToChecklist";
 	private static final String GET_FINISH_TASK_CHECKLIST = "/getFinishTaskChecklist";
 	private static final String GET_STATUS = "/getStatus";
+	private static final String ADD_STATUS_URL = "/addStatus";
 
 	private DBService dbService;
 	private FinishTaskDBService finishDBService;
@@ -290,6 +292,7 @@ public class AlertController {
 			System.out.println(task.toString());
 			task.setTaskDate(taskObj.getTaskDate());
 			task.setTaskModifiedDate(new Date());
+			task.setStatus(taskObj.getStatus());
 			System.out.println("Edited Task Data :: " + task.toString());
 
 			final Integer id = dbService.addTask(task);
@@ -398,8 +401,70 @@ public class AlertController {
 	}
 	
 	@GetMapping(GET_STATUS)
-	public String getStatus() {
+	public String getStatus(@RequestParam("id") Integer id,Model model) {
+		taskStatusData(id, model,false);
 		return STATUS_PAGE;
 	}
+
+	private void taskStatusData(Integer id, Model model,Boolean isAddingStatus) {
+		Task taskDB = dbService.getTaskById(id);
+		System.out.println("task Data :: "+taskDB.toString());
+		List<DateAndStatusTaskPropagator> list = new ArrayList<DateAndStatusTaskPropagator>();
+		String status = taskDB.getStatus();
+
+		if(StringUtils.isBlank(status) && !isAddingStatus) {
+			model.addAttribute("emptyStatus","You Don't have Status for this task");
+		}else if(status.contains("#")) {
+			for (String retval: status.split("#")) {
+				DateAndStatusTaskPropagator propagator = new DateAndStatusTaskPropagator();
+				String[] split = retval.split("_");
+				int length = split.length;
+				for(int i = 0 ; i<length;i++) {
+					String statusSplit = split[i];
+					System.out.println(statusSplit);
+					if(statusSplit.endsWith("Status|")) {
+						String finalStatus = statusSplit.replace("|Status|", "");
+						System.out.println(finalStatus);
+						propagator.setStatus(finalStatus);
+					}else {
+						propagator.setDate(statusSplit);
+					}
+				}
+				list.add(propagator);
+		      }
+			model.addAttribute("statusList",list);
+		}else if(status.contains("_")) {
+				DateAndStatusTaskPropagator propagator = new DateAndStatusTaskPropagator();
+				String[] split = status.split("_");
+				int length = split.length;
+				for(int i = 0 ; i<length;i++) {
+					String statusSplit = split[i];
+					System.out.println(statusSplit);
+					if(statusSplit.endsWith("Status|")) {
+						String finalStatus = statusSplit.replace("|Status|", "");
+						System.out.println(finalStatus);
+						propagator.setStatus(finalStatus);
+					}else {
+						propagator.setDate(statusSplit);
+					}
+				}
+				list.add(propagator);
+			model.addAttribute("statusList",list);
+		}
+		
+		else {
+			model.addAttribute("status",status);
+		}
+		model.addAttribute("task",taskDB);
+	}
+	
+	@PostMapping(ADD_STATUS_URL)
+	public String addStatus(@ModelAttribute Task task,Model model) {
+		Task taskDB = dbService.addStatus(task);
+		Boolean isAddingStatus = true;
+		taskStatusData(taskDB.getId(), model,isAddingStatus );
+		return STATUS_PAGE;
+	}
+	
 
 }

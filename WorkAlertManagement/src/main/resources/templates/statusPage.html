@@ -34,27 +34,63 @@
 	<br>
 
 	<div class="container">
-		<form class="form-group">
-			<div>Task Id ::</div>
-			<div>Task ::</div>
-			<div>Task Start Date ::</div>
-			<div>Today ::</div>
-
+		<form class="form-group" th:action="@{/task/addStatus}" method="POST">
+		<table class="table">
+			<tr>
+				<th><label class="label label-primary">Task Id : </label></th>
+				<th><input id="id" name="id" th:value="${task.id}" class="form-control" readonly="readonly"/></th>
+<!-- 				<th> <span th:text="${task.id}"></span></th> -->
+			<tr>
+			<tr>
+				<th><label class="label label-primary">Task : </label></th>
+				<th><span th:text="${task.task1}"></span></th>
+			</tr>	
+			<tr>
+				<th><label class="label label-primary">Task Start Date :</label></th>
+				<th><span th:text="${task.taskDate}"></span></th>
+			</tr>	
+			<tr>
+				<th><label class="label label-primary">Today :</label></th>
+				<th></th>
+			</tr>	
+		</table>
 			<div th:unless="${isEmptyList}">
 				<div class="container">
 					<table class="table table-hover table-bordered text-center">
 						<thead class="bg-info text-danger">
 							<tr>
-								<th class="text-center" width="150">Date</th>
+								<th class="text-center" width="250">Date</th>
 								<th class="text-center">Status</th>
 								<th class="text-center" width="300">Operations</th>
 							</tr>
 							<tr>
+								<div th:if="${emptyStatus!=null}" class="container">
+									<div class="alert alert-danger" align="center">
+										<label th:text="${emptyStatus}"></label>
+									</div>
+								</div>
+							</tr>
+							<tr>
+								<div th:if="${statusList}">
+									<tr th:each="status:${statusList}">
+										<th th:text="${status.date}"></th>
+										<th th:text="${status.status}"></th>
+										<th class="text-center">
+											<a th:href="@{#}"><input type="button" value="EDIT" class="btn btn-info" /></a>
+											<a th:href="@{#}"><input type="button" value="DELETE" class="btn btn-danger" /></a>
+										</th>
+									</tr>
+								</div>
+							</tr>
+							<tr>
 								<th></th>
-								<th><input type="text" placeholder="Add todays status"
-									class="form-control" id="status" name="status" /></th>
-								<th class="text-center"><input type="submit" value="ADD"
-									class="btn btn-warning" /></th>
+								<th>
+								<input type="text" placeholder="Add todays status"
+										class="form-control" id="status" name="status" />
+								</th>
+								<th class="text-center">
+									<input type="submit" value="ADD" class="btn btn-warning" />
+								</th>
 							</tr>
 						</thead>
 					</table>

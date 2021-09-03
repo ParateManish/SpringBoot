@@ -69,7 +69,7 @@
 						<tr th:each="ob:${taskList}">
 							<td th:text="${ob.id}"></td>
 							<td th:text="${ob.task1}"></td>
-							<td><a th:href="@{/task/getStatus}">Status</a></td>
+							<td><a th:href="@{/task/getStatus(id=${ob.id})}">Status</a></td>
 							<td th:text="${ob.taskDate}"></td>
 							<td th:text="${ob.taskModifiedDate}"></td>
 							<td>

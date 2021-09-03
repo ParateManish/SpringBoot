@@ -3,6 +3,7 @@ package com.manish.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,20 @@ public class DBService {
 
 	public Task getTaskById(Integer id) {
 		return taskRepo.findById(id).get();
+	}
+
+	public Task addStatus(Task task) {
+		String status = StringUtils.EMPTY;
+		Task taskDB = getTaskById(task.getId());
+		taskDB.setTaskStatusDate(new Date());
+		if(StringUtils.isBlank(taskDB.getStatus()))
+			status = task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
+		else	
+			status = taskDB.getStatus()+"#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
+		taskDB.setStatus(status);
+		taskRepo.save(taskDB);
+		System.out.println("task Data :: "+taskDB.toString());
+		return taskDB;
 	}
 
 }
