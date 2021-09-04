@@ -40,18 +40,22 @@ public class DBService {
 		return taskRepo.findById(id).get();
 	}
 
-	public Task addStatus(Task task) {
+	public Task addStatus(Task task,Boolean isDeleting) {
 		String status = StringUtils.EMPTY;
-		Task taskDB = getTaskById(task.getId());
-		taskDB.setTaskStatusDate(new Date());
-		if(StringUtils.isBlank(taskDB.getStatus()))
-			status = task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
-		else	
-			status = taskDB.getStatus()+"#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
-		taskDB.setStatus(status);
-		taskRepo.save(taskDB);
-		System.out.println("task Data :: "+taskDB.toString());
-		return taskDB;
+		if(!isDeleting) {
+			Task taskDB = getTaskById(task.getId());
+			taskDB.setTaskStatusDate(new Date());
+			if(StringUtils.isBlank(taskDB.getStatus()))
+				status = "#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
+			else	
+				status = taskDB.getStatus()+"#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
+			taskDB.setStatus(status);
+			taskRepo.save(taskDB);
+			return taskDB;
+		}else {
+			taskRepo.save(task);
+			return task;
+		}
 	}
 
 }

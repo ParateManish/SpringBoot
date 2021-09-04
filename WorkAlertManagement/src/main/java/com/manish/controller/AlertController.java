@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -460,11 +461,40 @@ public class AlertController {
 	
 	@PostMapping(ADD_STATUS_URL)
 	public String addStatus(@ModelAttribute Task task,Model model) {
-		Task taskDB = dbService.addStatus(task);
+		Task taskDB = dbService.addStatus(task,false);
 		Boolean isAddingStatus = true;
 		taskStatusData(taskDB.getId(), model,isAddingStatus );
 		return STATUS_PAGE;
 	}
 	
-
+	@RequestMapping(value = "/deleteStatus/{status}/{id}" )
+//	@RequestMapping(value = "/deleteStatus" )
+	public String removeTaskStatus(	
+									@PathVariable(value = "status") String status,
+									@PathVariable(value = "id" , required = true) Integer id ,
+									Model model,
+									Task task ) {
+		Task taskDB = dbService.getTaskById(id);
+		String statusDB = taskDB.getStatus();
+//		String statusRequest = "BBB";
+		
+		if (statusDB.contains("#")) {
+			String concat = StringUtils.EMPTY;
+			for (String retval : statusDB.split("#")) {
+				if (StringUtils.isNotBlank(retval)) {
+					retval = "#" + retval;
+					if (retval.startsWith("#" + status+"|Status|")) {
+						System.out.println(retval);
+						System.err.println(retval+" is deleted");
+						retval = StringUtils.EMPTY;
+					}
+					concat = concat + retval;
+				}
+			}
+			System.out.println(concat);
+			taskDB.setStatus(concat);
+			dbService.addStatus(taskDB,true);
+		}
+		return getStatus(taskDB.getId(), model);
+	}
 }

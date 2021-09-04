@@ -30,7 +30,10 @@
 
 	<div class="container bg-primary text-danger">
 		<h3 style="text-align: center">Tasks Status</h3>
-	</div>
+	</div><br>
+	<div class="col-md-12 bg-light text-center">
+		<a th:href="@{/task/pendingTasks}"><input type="button" value="BACK" class="btn btn-warning" /></a><br>
+	</div>	
 	<br>
 
 	<div class="container">
@@ -39,7 +42,6 @@
 			<tr>
 				<th><label class="label label-primary">Task Id : </label></th>
 				<th><input id="id" name="id" th:value="${task.id}" class="form-control" readonly="readonly"/></th>
-<!-- 				<th> <span th:text="${task.id}"></span></th> -->
 			<tr>
 			<tr>
 				<th><label class="label label-primary">Task : </label></th>
@@ -73,11 +75,12 @@
 							<tr>
 								<div th:if="${statusList}">
 									<tr th:each="status:${statusList}">
-										<th th:text="${status.date}"></th>
-										<th th:text="${status.status}"></th>
+										<th><input type="text" th:value="${status.date}" class="form-control" readonly="readonly"/></th>
+										<th><input type="text" th:value="${status.status}" class="form-control" readonly="readonly"/></th>
 										<th class="text-center">
 											<a th:href="@{#}"><input type="button" value="EDIT" class="btn btn-info" /></a>
-											<a th:href="@{#}"><input type="button" value="DELETE" class="btn btn-danger" /></a>
+<!-- 											<a th:href="@{/task/deleteStatus(id=${task.id}),(status=${status.status})}"><input type="button" value="DELETE" class="btn btn-danger" /></a> -->
+											<a th:href="@{/task/deleteStatus/{status}/{id} (status=${status.status},id=${task.id})}"><input type="button" value="DELETE" class="btn btn-danger" /></a>
 										</th>
 									</tr>
 								</div>
