@@ -10,23 +10,21 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<nav class=" navbar navbar-default">
-	<div class="navbar-header">
-		<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
-	</div>
-	<ul class="nav navbar-nav">
-		<li class="active"><a th:href="@{/task/home}">Home</a></li>
-		<li><a href="/task/addNewTask">Add New Task</a></li>
-		<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
-		<li><a href="/task/pendingTaskByDate">Get Pending Task By
-				Date</a></li>
-		<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
-		<li><a href="/profile/getProfile">Profile</a></li>
-		<!--     	  	<li><a href="/userLogin/home">Logout</a></li> -->
-		<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
-		<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
-		<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
-</nav>
+<nav class=" navbar navbar-default" >
+		<div class="navbar-header">
+			<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a th:href="@{/task/home}">Home</a></li>
+			<li><a href="/task/addNewTask">Add New Task</a></li>
+			<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
+			<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
+			<li><a href="/profile/getProfile">PROFILE</a></li>
+<!--     	  	<li><a href="/userLogin/home">Logout</a></li> -->
+			<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
+			<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
+	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+	</nav>
 
 
 <div class="container bg-primary">
