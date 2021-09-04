@@ -3,9 +3,11 @@
 <head>
 <title>PENDING TASKS</title>
 <meta charset="utf-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- CSS only -->
+<!-- <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"></script>
 </head>
 <!-- <body background="/images/Home.jpg" alt="home"> -->
@@ -14,17 +16,18 @@
 	<nav class=" navbar navbar-default" >
 		<div class="navbar-header">
 			<a class="navbar-brand" th:href="@{/task/home}">WorkAlertManagement</a>
+			<a class="navbar-brand" th:href="@{/task/home}"><img src="https://img.icons8.com/office/40/000000/working-with-a-laptop.png"/></a>
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"><a th:href="@{/task/home}">Home</a></li>
 			<li><a href="/task/addNewTask">Add New Task</a></li>
 			<li><a href="/task/pendingTasks">Get All Pending Tasks</a></li>
 			<li><a href="/task/getAllFinishTasks">Get Finished Tasks</a></li>
-			<li><a href="/profile/getProfile">PROFILE</a></li>
-<!--     	  	<li><a href="/userLogin/home">Logout</a></li> -->
-			<li><a th:href="@{/userLogin/getSignupPage}">SIGNUP</a></li>
-			<li><a th:href="@{/customUserLogin/getLoginPage}">LOGIN </a></li>
-	      	<li><a href="/customUserLogin/customLogout">LOGOUT</a></li>
+			<li><a href="/profile/getProfile"><img <img src="https://img.icons8.com/office/25/000000/test-account.png" title="profile"/> </a></li>
+			<li><a th:href="@{/userLogin/getSignupPage}"><img src="https://img.icons8.com/ios/24/000000/sign-up.png" title="sing up"/></a></li>
+			<li><a th:href="@{/customUserLogin/getLoginPage}"><img src="https://img.icons8.com/ios/25/000000/login-rounded-right--v1.png" title="login"/></a></li>
+	      	<li><a href="/customUserLogin/customLogout"><img src="https://img.icons8.com/ios-glyphs/25/000000/logout-rounded-left.png" title="logout"/></a></li>
+	      	</ul>
 	</nav>
 	<nav>
 			<li><a href="/learner/showSubjectPage">To Learn</a></li>
@@ -32,17 +35,20 @@
 	      	<li><a href="#">Users List</a></li>
 	</nav>
 	
-	<div class="dropdown">
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
 </div>
 	<div th:if="${wishMsg!=null}" class="container">
 	<h4>
 		<div class="alert alert-success">
 			<span th:text="${wishMsg}"></span>
+			<div th:if="${wishMsg}=='Good Morning'">
+				<img src="https://img.icons8.com/office/80/000000/sunrise--v1.png"/>
+			</div>
+			<div th:if="${wishMsg}=='Good Evening'">
+				<img src="https://img.icons8.com/office/80/000000/sunset--v1.png"/>
+			</div>
+			<div th:if="${wishMsg}=='Good Night'">
+				<img src="https://img.icons8.com/office/80/000000/partly-cloudy-night.png"/>
+			</div>
 			<strong th:text="${username}"></strong>, have a Great day Ahead
 			
 		</div>
@@ -58,12 +64,14 @@
 		</div>
 	</div>
 	<div th:if="${loginErrMsg!=null}" class="container">
+	<img src="https://img.icons8.com/office/40/000000/error.png"/>
 		<div class="alert alert-danger" align="center">
 			<strong>Error!</strong><br>
 			<span th:text="${loginErrMsg}"></span>
 		</div>
 	</div>
 	<div th:if="${logoutMsg!=null}" class="container">
+	<img src="https://img.icons8.com/office/40/000000/error.png"/>
 		<div class="alert alert-danger" align="center">
 			<strong>Error!</strong><br>
 			<span th:text="${logoutMsg}"></span>
