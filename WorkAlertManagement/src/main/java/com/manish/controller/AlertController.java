@@ -76,6 +76,9 @@ public class AlertController {
 	private static final String GET_FINISH_TASK_CHECKLIST = "/getFinishTaskChecklist";
 	private static final String GET_STATUS = "/getStatus";
 	private static final String ADD_STATUS_URL = "/addStatus";
+	
+	private static final String EMPTY_STATUS = "emptyStatus";
+	private static final String STATUS_LIST = "statusList";
 
 	private DBService dbService;
 	private FinishTaskDBService finishDBService;
@@ -403,18 +406,19 @@ public class AlertController {
 	
 	@GetMapping(GET_STATUS)
 	public String getStatus(@RequestParam("id") Integer id,Model model) {
-		taskStatusData(id, model,false);
+		filterStatusAndTask(id, model,false);
 		return STATUS_PAGE;
 	}
 
-	private void taskStatusData(Integer id, Model model,Boolean isAddingStatus) {
+	private void filterStatusAndTask(Integer id, Model model,Boolean isAddingStatus) {
+		String finalStatus = StringUtils.EMPTY;
 		Task taskDB = dbService.getTaskById(id);
 		System.out.println("task Data :: "+taskDB.toString());
 		List<DateAndStatusTaskPropagator> list = new ArrayList<DateAndStatusTaskPropagator>();
 		String status = taskDB.getStatus();
 
 		if(StringUtils.isBlank(status) && !isAddingStatus) {
-			model.addAttribute("emptyStatus","You Don't have Status for this task");
+			model.addAttribute(EMPTY_STATUS,"You Don't have Status for this task");
 		}else if(status.contains("#")) {
 			for (String retval: status.split("#")) {
 				DateAndStatusTaskPropagator propagator = new DateAndStatusTaskPropagator();
@@ -424,17 +428,19 @@ public class AlertController {
 					String statusSplit = split[i];
 					System.out.println(statusSplit);
 					if(statusSplit.endsWith("Status|")) {
-						String finalStatus = statusSplit.replace("|Status|", "");
+						finalStatus = statusSplit.replace("|Status|", "");
 						System.out.println(finalStatus);
 						propagator.setStatus(finalStatus);
 					}else {
 						propagator.setDate(statusSplit);
 					}
 				}
-				list.add(propagator);
+				if(StringUtils.isNotBlank(finalStatus)) {
+					list.add(propagator);
+				}
 		      }
-			model.addAttribute("statusList",list);
-		}else if(status.contains("_")) {
+			model.addAttribute(STATUS_LIST,list);
+		} /*else if(status.contains("_")) {
 				DateAndStatusTaskPropagator propagator = new DateAndStatusTaskPropagator();
 				String[] split = status.split("_");
 				int length = split.length;
@@ -442,20 +448,20 @@ public class AlertController {
 					String statusSplit = split[i];
 					System.out.println(statusSplit);
 					if(statusSplit.endsWith("Status|")) {
-						String finalStatus = statusSplit.replace("|Status|", "");
+						finalStatus = statusSplit.replace("|Status|", "");
 						System.out.println(finalStatus);
 						propagator.setStatus(finalStatus);
 					}else {
 						propagator.setDate(statusSplit);
 					}
 				}
-				list.add(propagator);
+				if(StringUtils.isNotBlank(finalStatus)) {
+					list.add(propagator);
+				}
 			model.addAttribute("statusList",list);
-		}
-		
-		else {
+			}else {
 			model.addAttribute("status",status);
-		}
+		}*/
 		model.addAttribute("task",taskDB);
 	}
 	
@@ -463,27 +469,25 @@ public class AlertController {
 	public String addStatus(@ModelAttribute Task task,Model model) {
 		Task taskDB = dbService.addStatus(task,false);
 		Boolean isAddingStatus = true;
-		taskStatusData(taskDB.getId(), model,isAddingStatus );
+		filterStatusAndTask(taskDB.getId(), model,isAddingStatus );
 		return STATUS_PAGE;
 	}
 	
 	@RequestMapping(value = "/deleteStatus/{status}/{id}" )
-//	@RequestMapping(value = "/deleteStatus" )
 	public String removeTaskStatus(	
 									@PathVariable(value = "status") String status,
 									@PathVariable(value = "id" , required = true) Integer id ,
-									Model model,
-									Task task ) {
+									Model model
+									) {
 		Task taskDB = dbService.getTaskById(id);
 		String statusDB = taskDB.getStatus();
-//		String statusRequest = "BBB";
-		
+
 		if (statusDB.contains("#")) {
 			String concat = StringUtils.EMPTY;
 			for (String retval : statusDB.split("#")) {
 				if (StringUtils.isNotBlank(retval)) {
 					retval = "#" + retval;
-					if (retval.startsWith("#" + status+"|Status|")) {
+					if (retval.startsWith("#" + status + "|Status|")) {
 						System.out.println(retval);
 						System.err.println(retval+" is deleted");
 						retval = StringUtils.EMPTY;

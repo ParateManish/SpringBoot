@@ -51,9 +51,11 @@ public class DBService {
 				status = taskDB.getStatus()+"#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
 			taskDB.setStatus(status);
 			taskRepo.save(taskDB);
+			System.out.println("Task Status is Added");
 			return taskDB;
 		}else {
 			taskRepo.save(task);
+			System.out.println("Task Status is Added");
 			return task;
 		}
 	}
