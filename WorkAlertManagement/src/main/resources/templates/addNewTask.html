@@ -86,4 +86,16 @@
 			<span th:text="${message}"></span>
 		</div>
 	</div>
+	<div th:if="${message!=null}" class="container">
+		<div class="alert alert-success" align="center">
+			<strong>Success!</strong>
+			<img src="https://img.icons8.com/office/16/000000/send.png"/>
+			<img src="https://img.icons8.com/office/20/000000/send.png"/>
+			<img src="https://img.icons8.com/office/24/000000/send.png"/>
+			<img src="https://img.icons8.com/office/30/000000/send.png"/>
+			<img src="https://img.icons8.com/office/44/000000/message-squared.png"/>
+			<br>
+			<span th:text="${message}"></span>
+		</div>
+	</div>
 </html>

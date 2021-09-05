@@ -1,8 +1,5 @@
 package com.manish.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,23 +28,21 @@ public class ProfileController {
 	private static final String USER = "user";
 
 	// OTHER CONSTANTS
-	private static final String USERNAME = "username";
 	private static final String USER_AND_ADMIN = "User and Admin";
 	private static final String USER_ONLY = "User only";
 
 	private UserLoginDBService dbService;
-	private CustomLoginController customLoginController;
 	private AlertController alertController;
+	private UserController userController;
 
-	public Map<String, String> map = new HashMap<String, String>();
 
 	@Autowired
-	public ProfileController(UserLoginDBService dbService, CustomLoginController customLoginController,
-			AlertController alertController) {
+	public ProfileController(UserLoginDBService dbService, AlertController alertController,
+					UserController userController) {
 		super();
 		this.dbService = dbService;
-		this.customLoginController = customLoginController;
 		this.alertController = alertController;
+		this.userController = userController;
 	}
 
 	@GetMapping(GET_PROFILE_URL)
@@ -58,19 +53,9 @@ public class ProfileController {
 			return resultPage;
 		}
 
-		UserLogin user = dbService.getUser(getUsername());
+		UserLogin user = dbService.getUser(userController.getUsername());
 		model.addAttribute(USER, user);
 		return PROFILE_PAGE;
-	}
-
-	private String getUsername() {
-		map = customLoginController.loginMap;
-		String username = StringUtils.EMPTY;
-
-		if (map.get(USERNAME) != null) {
-			username = map.get(USERNAME).toString();
-		}
-		return username;
 	}
 
 	@PostMapping(UPDATE_URL)

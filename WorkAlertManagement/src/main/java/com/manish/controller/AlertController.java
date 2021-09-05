@@ -84,16 +84,18 @@ public class AlertController {
 	private FinishTaskDBService finishDBService;
 	private CustomLoginController customLoginController;
 	private Map<Integer, Object> taskMap = new HashMap<>();
+	private UserController userController;
 
 	private String resultPage = StringUtils.EMPTY;
 	private List<FinishTask> finishTaskChecklist = new ArrayList<FinishTask>();
 
 	@Autowired
 	public AlertController(DBService dbService, FinishTaskDBService finishDBService,
-			CustomLoginController customLoginController) {
+			CustomLoginController customLoginController,UserController userController) {
 		this.dbService = dbService;
 		this.finishDBService = finishDBService;
 		this.customLoginController = customLoginController;
+		this.userController = userController;
 	}
 
 	@GetMapping(HOME_URL)
@@ -140,6 +142,8 @@ public class AlertController {
 			tsk.setTask1(taskName);
 			tsk.setTaskDate(new Date());
 			tsk.setTaskModifiedDate(new Date());
+			tsk.setUserName(userController.getUsername());
+			tsk.setCustomUniqueKey(tsk.getUserName()+"+"+tsk.getTask1());
 			taskList.add(tsk);
 		}
 		
@@ -168,7 +172,7 @@ public class AlertController {
 
 		checkUserLogin(model);
 		Boolean isEmptyList = false;
-		final List<Task> list = dbService.getAllTasks();
+		final List<Task> list = dbService.getAllTasks(userController.getUsername());
 		if (list.size() == 0) {
 			System.out.println("list is empty");
 			isEmptyList = true;

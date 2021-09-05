@@ -38,6 +38,12 @@ public class Task {
 
 	@Column
 	private String status;
+	
+	@Column
+	private String userName;
+	
+	@Column(unique = true)
+	private String customUniqueKey;
 
 	@Temporal(TemporalType.DATE)
 	private Date taskDate;
