@@ -5,16 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manish.controller.UserController;
 import com.manish.model.FinishTask;
 import com.manish.repository.IFinishTasksRepository;
 
 @Service
 public class FinishTaskDBService {
-	@Autowired
+
 	private IFinishTasksRepository finishTasksRepo;
+	private UserController userController;
+
+	@Autowired
+	public FinishTaskDBService(IFinishTasksRepository finishTasksRepo, UserController userController) {
+		super();
+		this.finishTasksRepo = finishTasksRepo;
+		this.userController = userController;
+	}
 
 	public List<FinishTask> getAllFinishTasks() {
-		List<FinishTask> list = finishTasksRepo.findAll();
+		List<FinishTask> list = finishTasksRepo.findAllByUserName(userController.getUsername());
 		return list;
 	}
 

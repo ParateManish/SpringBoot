@@ -25,7 +25,7 @@ public class DBService {
 	}
 	
 	public List<Task> getAllTasks(String username) {
-		return taskRepo.findAllByUsername(username);
+		return taskRepo.findAllByUserName(username);
 	}
 
 	public List<Task> getTaskByDate(Date date) {

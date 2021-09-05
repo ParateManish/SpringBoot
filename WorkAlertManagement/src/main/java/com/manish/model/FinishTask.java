@@ -35,6 +35,9 @@ public class FinishTask {
 
 	@Column
 	private String task4;
+	
+	@Column
+	private String userName;
 
 	@Temporal(TemporalType.DATE)
 	private Date finishTaskDate;

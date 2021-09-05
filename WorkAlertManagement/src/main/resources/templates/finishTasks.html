@@ -36,23 +36,17 @@
 	<table class="table table-hover table-bordered text-center">
 	<thead class="bg-info text-danger">
 		<tr>
-			<th class="text-center" width="130">Id</th>
-			<th class="text-center" width="130">Task1</th>
-			<th class="text-center" width="130">Task2</th>
-			<th class="text-center" width="130">Task3</th>
-			<th class="text-center" width="130">Task4</th>
-			<th class="text-center" width="130">Finished Task Date</th>
-			<th class="text-center" width="130">Task Modified Date</th>
-			<th class="text-center" width="400">Operations</th>
+			<th class="text-center" width="50">Id</th>
+			<th class="text-center" width="400">Task1</th>
+			<th class="text-center" width="100">Finished Task Date</th>
+			<th class="text-center" width="100">Task Modified Date</th>
+			<th class="text-center" width="450">Operations</th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr th:each="ob:${finishTaskList}">
 			<td th:text="${ob.id}"></td>
 			<td th:text="${ob.task1}"></td>
-			<td th:text="${ob.task2}"></td>
-			<td th:text="${ob.task3}"></td>
-			<td th:text="${ob.task4}"></td>
 			<td th:text="${ob.finishTaskDate}"></td>
 			<td th:text="${ob.taskModifiedDate}"></td>
 			<td>
