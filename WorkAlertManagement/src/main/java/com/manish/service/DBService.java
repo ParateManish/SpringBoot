@@ -20,7 +20,7 @@ public class DBService {
 		return taskRepo.save(task).getId();
 	}
 
-	public void addAllTask(List<Task> taskList) {
+	public void addAllTask(List<Task> taskList) throws Exception{
 		taskRepo.saveAll(taskList);
 	}
 	

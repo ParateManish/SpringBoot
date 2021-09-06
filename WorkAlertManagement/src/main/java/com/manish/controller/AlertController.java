@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.manish.exceptions.UniqueTaskException;
 import com.manish.model.DateAndStatusTaskPropagator;
 import com.manish.model.FinishTask;
 import com.manish.model.Task;
@@ -54,6 +56,10 @@ public class AlertController {
 	private static final String FINISH_TASK_LIST = "finishTaskList";
 	private static final String TASK = "task";
 	private static final String IS_EMPTY_LIST = "isEmptyList";
+	private static final String EMPTY_STATUS = "emptyStatus";
+	private static final String STATUS_LIST = "statusList";
+	private static final String UNIQUE_TASK_EXCEPTION = "uniqueTaskException";
+	private static final String INTERNAL_ERROR = "internalError";
 
 	// BELOW ARE THE CONSTANTS FOR THE URL
 	private static final String HOME_URL = "/home";
@@ -77,9 +83,6 @@ public class AlertController {
 	private static final String GET_STATUS = "/getStatus";
 	private static final String ADD_STATUS_URL = "/addStatus";
 	
-	private static final String EMPTY_STATUS = "emptyStatus";
-	private static final String STATUS_LIST = "statusList";
-
 	private DBService dbService;
 	private FinishTaskDBService finishDBService;
 	private CustomLoginController customLoginController;
@@ -147,17 +150,25 @@ public class AlertController {
 			taskList.add(tsk);
 		}
 		
-//		task.setTaskDate(new Date());
-//		task.setTaskModifiedDate(new Date());
-//		final Integer id = dbService.addTask(task);
-		dbService.addAllTask(taskList);
-		String message = StringUtils.EMPTY;
-		if(taskList.size()==1) 
-			message = "Task is Added in TODO List";
-		else
-			message = "Tasks are Added in TODO List";
-			
-		model.addAttribute(MESSAGE, message);
+		try {
+			dbService.addAllTask(taskList);
+			String message = StringUtils.EMPTY;
+			if(taskList.size()==1) 
+				message = "Task is Added in TODO List";
+			else
+				message = "Tasks are Added in TODO List";
+			model.addAttribute(MESSAGE, message);
+
+		} catch (DataIntegrityViolationException e) {
+			String msg = "This task '"+task.getTask1().toUpperCase()+"' is already available in your task list";
+			model.addAttribute(UNIQUE_TASK_EXCEPTION, msg);
+			return ADD_NEW_TASK;
+//			throw new UniqueTaskException("This task '"+task.getTask1().toUpperCase()+"' is already available in your task list");
+		} catch (Exception e) {
+			model.addAttribute(INTERNAL_ERROR, "Internal Error,Wait for some time or Please contact Administrator");
+			e.printStackTrace();
+			return ADD_NEW_TASK;
+		}
 		return ADD_NEW_TASK;
 	}
 
