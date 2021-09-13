@@ -266,6 +266,7 @@ public class AlertController {
 
 		BeanUtils.copyProperties(finishTask,task);
 		
+		finishTask.setId(task.getId());
 		finishTask.setFinishTaskDate(new Date());
 		finishDBService.addTask(finishTask);
 		dbService.deleteById(id);

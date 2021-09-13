@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FinishTask {
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	private Integer id;
 
 	@Column
@@ -35,6 +34,10 @@ public class FinishTask {
 
 	@Column
 	private String task4;
+	
+
+	@Column
+	private String status;
 	
 	@Column
 	private String userName;

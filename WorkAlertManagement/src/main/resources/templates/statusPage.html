@@ -60,7 +60,7 @@
 						<thead class="bg-info text-danger">
 							<tr>
 								<th class="text-center" width="250">Date</th>
-								<th class="text-center">Status</th>
+								<th class="text-center" width="700">Status</th>
 								<th class="text-center" width="300">Operations</th>
 							</tr>
 							<tr>
@@ -72,12 +72,14 @@
 							</tr>
 							<tr>
 								<div th:if="${statusList}">
-									<tr th:each="status:${statusList}">
-										<th><input type="text" th:value="${status.date}" class="form-control" readonly="readonly"/></th>
-										<th><input type="text" th:value="${status.status}" class="form-control" readonly="readonly"/></th>
+									<tr th:each="status:${statusList}" class="text-success">
+<!-- 										<th><input type="text" th:value="${status.date}" class="form-control" readonly="readonly"/></th> -->
+										<th> <span th:text="${status.date}" class="align-middle"></span> </th>
+<!-- 										<th><input type="text" th:value="${status.status}" class="form-control" readonly="readonly"/></th> -->
+										<th><p th:text="${status.status}"></p> </th>
 										<th class="text-center">
 											<a th:href="@{#}"><input type="button" value="EDIT" class="btn btn-info" /></a>
-											<a th:href="@{/task/deleteStatus/{status}/{id} (status=${status.status},id=${task.id})}"><input type="button" value="DELETE" class="btn btn-danger" /></a>
+											<a th:href="@{/task/deleteStatus/{status}/{id} (status=${status.status},id=${task.id})}"><input type="button" value="DELETE" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')"/></a>
 										</th>
 									</tr>
 								</div>
