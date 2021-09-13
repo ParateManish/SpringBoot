@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.manish.exceptions.UniqueTaskException;
 import com.manish.model.DateAndStatusTaskPropagator;
 import com.manish.model.FinishTask;
 import com.manish.model.Task;
@@ -147,6 +146,7 @@ public class AlertController {
 			tsk.setTaskModifiedDate(new Date());
 			tsk.setUserName(userController.getUsername());
 			tsk.setCustomUniqueKey(tsk.getUserName()+"+"+tsk.getTask1());
+			tsk.setStatusStage("Pending Task");
 			taskList.add(tsk);
 		}
 		
@@ -158,7 +158,7 @@ public class AlertController {
 			else
 				message = "Tasks are Added in TODO List";
 			model.addAttribute(MESSAGE, message);
-
+			
 		} catch (DataIntegrityViolationException e) {
 			String msg = "This task '"+task.getTask1().toUpperCase()+"' is already available in your task list";
 			model.addAttribute(UNIQUE_TASK_EXCEPTION, msg);
@@ -183,7 +183,7 @@ public class AlertController {
 
 		checkUserLogin(model);
 		Boolean isEmptyList = false;
-		final List<Task> list = dbService.getAllTasks(userController.getUsername());
+		final List<Task> list = dbService.getAllTasks(userController.getUsername(),"Pending Task");
 		if (list.size() == 0) {
 			System.out.println("list is empty");
 			isEmptyList = true;
@@ -253,6 +253,7 @@ public class AlertController {
 	@GetMapping(FINISH_TASK_URL)
 	public String finishTasks(@RequestParam("id") Integer id, Model model) throws IllegalAccessException, InvocationTargetException {
 		System.out.println("AlertController.finishTasks()");
+		String statusStage = "Finished Status";
 
 		resultPage = checkUserLogin(model);
 		if (!StringUtils.isBlank(resultPage)) {
@@ -260,7 +261,7 @@ public class AlertController {
 		}
 
 		checkUserLogin(model);
-		String message = "Record with id " + id + " is deleted";
+//		String message = "Record with id " + id + " is deleted";
 		Task task = dbService.getTaskById(id);
 		FinishTask finishTask = new FinishTask();
 
@@ -269,11 +270,14 @@ public class AlertController {
 		finishTask.setId(task.getId());
 		finishTask.setFinishTaskDate(new Date());
 		finishDBService.addTask(finishTask);
-		dbService.deleteById(id);
-		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
-		model.addAttribute(FINISH_TASK_LIST, finishTaskList);
-		model.addAttribute(MESSAGE, message);
-		return REDIRECT + GET_ALL_FINISH_TASKS;
+		task.setStatusStage(statusStage);
+		dbService.addTask(task);
+		model.addAttribute("statusStage",statusStage);
+//		List<FinishTask> finishTaskList = finishDBService.getAllFinishTasks();
+//		model.addAttribute(FINISH_TASK_LIST, finishTaskList);
+//		model.addAttribute(MESSAGE, message);
+//		return REDIRECT + GET_ALL_FINISH_TASKS;
+		return getAllFinishTasks(model);
 	}
 
 	@GetMapping(GET_ALL_FINISH_TASKS_URL)

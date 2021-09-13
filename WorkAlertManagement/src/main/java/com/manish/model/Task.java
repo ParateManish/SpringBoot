@@ -42,6 +42,9 @@ public class Task {
 	@Column
 	private String userName;
 	
+	@Column
+	private String statusStage;
+	
 	@Column(unique = true)
 	private String customUniqueKey;
 

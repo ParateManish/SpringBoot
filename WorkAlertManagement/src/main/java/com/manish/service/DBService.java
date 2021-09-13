@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.manish.model.Task;
@@ -24,8 +23,8 @@ public class DBService {
 		taskRepo.saveAll(taskList);
 	}
 	
-	public List<Task> getAllTasks(String username) {
-		return taskRepo.findAllByUserName(username);
+	public List<Task> getAllTasks(String username, String statusStage) {
+		return taskRepo.findAllByUserNameAndStatusStage(username,statusStage);
 	}
 
 	public List<Task> getTaskByDate(Date date) {
