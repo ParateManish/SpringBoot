@@ -37,21 +37,9 @@
 					<input type="number" name = "id" th:value ="${task.id}" readonly="readonly" class="form-control"/><br>
 				</div> <br>
 				<div>	
-					<label>Task 1 :: </label>
-					<input type="text" name = "task1" th:value="${task.task1}" class="form-control" placeholder="Edit Task1"/><br>
+					<label>Task  :: </label>
+					<input type="text" name = "task1" th:value="${task.task1}" class="form-control" placeholder="Edit Task"/><br>
 				</div> <br>
-				<div>
-					<label>Task 2 :: </label>
-					<input type="text" name = "task2" th:value="${task.task2}" class="form-control" placeholder="Edit Task2"/><br>
-				</div> <br>
-				<div>
-					<label>Task 3 :: </label>
-					<input type="text" name = "task3" th:value="${task.task3}" class="form-control" placeholder="Edit Task3"/><br>
-				</div> <br>
-				<div>
-					<label>Task 4 :: </label>
-					<input type="text" name = "task4" th:value="${task.task4}" class="form-control" placeholder="Edit Task4"/><br>
-				</div> <br>	
 				<div>
 					<input type="submit" value="EDIT" class="btn btn-primary" >&ensp;&ensp;&ensp;
 					<a th:href="@{/task/pendingTasks}" class="btn btn-danger">CANCEL</a>	
@@ -68,21 +56,9 @@
 					<input type="number" name = "id" th:value ="${finishTask.id}" readonly="readonly" class="form-control"/><br>
 				</div> <br>
 				<div>	
-					<label>Task 1 :: </label>
-					<input type="text" name = "task1" th:value="${finishTask.task1}" class="form-control" placeholder="Edit Task1"/><br>
+					<label>Task  :: </label>
+					<input type="text" name = "task1" th:value="${finishTask.task1}" class="form-control" placeholder="Edit Task"/><br>
 				</div> <br>
-				<div>
-					<label>Task 2 :: </label>
-					<input type="text" name = "task2" th:value="${finishTask.task2}" class="form-control" placeholder="Edit Task2"/><br>
-				</div> <br>
-				<div>
-					<label>Task 3 :: </label>
-					<input type="text" name = "task3" th:value="${finishTask.task3}" class="form-control" placeholder="Edit Task3"/><br>
-				</div> <br>
-				<div>
-					<label>Task 4 :: </label>
-					<input type="text" name = "task4" th:value="${finishTask.task4}" class="form-control" placeholder="Edit Task4"/><br>
-				</div> <br>	
 				<div>
 					<input type="submit" value="EDIT" class="btn btn-primary" >&ensp;&ensp;&ensp;
 					<a th:href="@{/task/getAllFinishTasks}" class="btn btn-danger">CANCEL</a>	

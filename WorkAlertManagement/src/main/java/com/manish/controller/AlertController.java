@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -281,18 +282,17 @@ public class AlertController {
 	}
 
 	@PostMapping(EDIT_URL)
-	public String editPage(@ModelAttribute Task task, Model model) {
+	public String editPage(@ModelAttribute Task task, Model model) throws IllegalAccessException, InvocationTargetException {
 		System.out.println("AlertController.editPage()");
 		if (taskMap.get(task.getId()) != null) {
 			Task taskObj = (Task) taskMap.get(task.getId());
 
 			System.out.println(task.toString());
-			task.setTaskDate(taskObj.getTaskDate());
-			task.setTaskModifiedDate(new Date());
-			task.setStatus(taskObj.getStatus());
-			System.out.println("Edited Task Data :: " + task.toString());
+			taskObj.setTaskModifiedDate(new Date());
+			taskObj.setTask1(task.getTask1());
+			System.out.println("Edited Task Data :: " + taskObj.toString());
 
-			final Integer id = dbService.addTask(task);
+			final Integer id = dbService.addTask(taskObj);
 			final String message = "Task " + id + " is Modified in TODO List";
 			model.addAttribute(MESSAGE, message);
 			return EDIT_PAGE;
