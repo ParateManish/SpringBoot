@@ -27,24 +27,21 @@ public class Task {
 	@Column
 	private String task1;
 
-	@Column
 	private String task2;
 
-	@Column
 	private String task3;
 
-	@Column
 	private String task4;
 
 	@Column
 	private String status;
-	
+
 	@Column
 	private String userName;
-	
+
 	@Column
 	private String statusStage;
-	
+
 	@Column(unique = true)
 	private String customUniqueKey;
 
@@ -53,7 +50,10 @@ public class Task {
 
 	@Temporal(TemporalType.DATE)
 	private Date taskModifiedDate;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date taskStatusDate;
+	
+	@Temporal(TemporalType.DATE)
+	private Date finishedTaskDate;
 }

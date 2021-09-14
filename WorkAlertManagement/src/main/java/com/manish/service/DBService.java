@@ -60,4 +60,9 @@ public class DBService {
 		}
 	}
 
+	public List<Task> getAllFinishedTasks(String finishStatusStage) {
+		List<Task> list = taskRepo.findAllByStatusStage(finishStatusStage);
+		return list;
+	}
+
 }

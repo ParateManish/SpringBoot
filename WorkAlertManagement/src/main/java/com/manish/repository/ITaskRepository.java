@@ -12,4 +12,6 @@ public interface ITaskRepository extends JpaRepository<Task, Integer> {
 	public List<Task> findByTaskDate(Date date);
 
 	public List<Task> findAllByUserNameAndStatusStage(String username,String statusStage);
+
+	public List<Task> findAllByStatusStage(String finishStatusStage);
 }

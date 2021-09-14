@@ -54,7 +54,7 @@
 				<th></th>
 			</tr>	
 		</table>
-			<div th:unless="${isEmptyList}">
+<!-- 			<div th:unless="${isEmptyList}"> -->
 				<div class="container">
 					<table class="table table-hover table-bordered text-center">
 						<thead class="bg-info text-danger">
@@ -71,11 +71,9 @@
 								</div>
 							</tr>
 							<tr>
-								<div th:if="${statusList}">
+								<div th:if="${statusList!=null}">
 									<tr th:each="status:${statusList}" class="text-success">
-<!-- 										<th><input type="text" th:value="${status.date}" class="form-control" readonly="readonly"/></th> -->
 										<th> <span th:text="${status.date}" class="align-middle"></span> </th>
-<!-- 										<th><input type="text" th:value="${status.status}" class="form-control" readonly="readonly"/></th> -->
 										<th><p th:text="${status.status}"></p> </th>
 										<th class="text-center">
 											<a th:href="@{#}"><input type="button" value="EDIT" class="btn btn-info" /></a>
@@ -97,7 +95,7 @@
 						</thead>
 					</table>
 				</div>
-			</div>
+<!-- 			</div> -->
 		</form>
 	</div>
 </html>

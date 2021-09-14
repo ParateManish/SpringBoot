@@ -26,22 +26,18 @@
 	</nav>
 <div class="container bg-primary">
 		<h3 style="text-align: center" >Finished Task <img src="https://img.icons8.com/office/50/000000/test-passed.png"/></h3>
-		<a th:href="@{/task/getFinishTaskChecklist}">
-					<p align="right"><input type="button" value="CHECKLISTT" class="btn btn-warning"></a></p>
-				</a> 
 	</div><br>
 <div class="container">
-<!-- <form th:action="@{/task/finishTasks}" method="POST"> -->
 	<div class="container">
 	<table class="table table-hover table-bordered text-center">
 	<thead class="bg-info text-danger">
 		<tr>
 			<th class="text-center" width="50">Id</th>
-			<th class="text-center" width="300">Task1</th>
-			<th class="text-center" width="60">Status</th>
+			<th class="text-center" width="200">Tasks</th>
+			<th class="text-center" width="70">Status</th>
+			<th class="text-center" width="70">Task Date</th>
 			<th class="text-center" width="70">Finished Task Date</th>
-			<th class="text-center" width="70">Task Modified Date</th>
-			<th class="text-center" width="350">Operations</th>
+			<th class="text-center" width="200">Operations</th>
 			
 		</tr>
 		</thead>
@@ -50,19 +46,15 @@
 			<td th:text="${ob.id}"></td>
 			<td th:text="${ob.task1}"></td>
 			<td><a th:href="@{/task/getStatus(id=${ob.id})}">Status</a></td>
-			<td th:text="${ob.finishTaskDate}"></td>
-			<td th:text="${ob.taskModifiedDate}"></td>
+			<td th:text="${ob.taskDate}"></td>
+			<td th:text="${ob.finishedTaskDate}"></td>
 			<td>
-				<a th:href="@{/task/editFinishPage(id=${ob.id})}">
+				<!-- <a th:href="@{/task/editFinishPage(id=${ob.id})}">
 					<input type="button" value="EDIT" class="btn btn-primary">&ensp;&ensp;
-				</a>
+				</a> -->
 				<a th:href="@{/task/deleteFinishTask(id=${ob.id})}">
-					<input type="button" value="DELETE" class="btn btn-danger"></a> &ensp;&ensp;
+					<input type="button" value="DELETE" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')"></a> &ensp;&ensp;
 				</a>
-				<a th:href="@{/task/addToChecklist(id=${ob.id})}">
-					<input type="button" value="ADD TO CHECKLIST" class="btn btn-warning">&ensp;&ensp;
-				</a>
-				
 			</td>
 		</tr>
 		</tbody>
@@ -70,7 +62,6 @@
 	</div>
 	<span><a href="${message}"></a></span>
 	<span><a href="${delete}"></a></span>
-<!-- </form> -->
 </div>
 <body>
 

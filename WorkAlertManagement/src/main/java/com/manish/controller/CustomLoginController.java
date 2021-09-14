@@ -126,8 +126,8 @@ public class CustomLoginController {
 		String username = StringUtils.EMPTY;
 		if (loginMap.get(USERNAME) != null) {
 			username = loginMap.get(USERNAME).toString();
+			System.out.println("User is logged in and Username :: " + username);
 		}
-		System.out.println("Username :: " + username);
 		if (StringUtils.isBlank(username) || username == null) {
 			System.err.println(LOGIN_REQUEST_MSG);
 			throw new Exception("Please Login");
