@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<html xmlns:th="https://www.thymeleaf.org/">
+<title>Dummy</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<h1 style="text-align: center">PDI Document</h1>
+
+<form th:action="@{/pdi/addPDI}" method="POST" class="form-inline" align="center">
+	
+	<!--IF -->
+	<div th:if="${partName!=null}">
+		<label>Part Name :: </label>
+		<input type="text" class="form-control" th:value= "${partName}" readonly="readonly">
+	</div>
+	<!-- ELSE -->
+	<div th:unless="${partName!=null}">
+	<label>Part Name :: </label>
+	   <input type="text" class="form-control" placeholder="Add Part Name" id="partName" name="partName" required="required">
+	</div>
+	<br>
+	<!--IF -->
+	<div th:if="${partNumber!=null}">
+		<label>Part Number :: </label>
+		<input type="text" class="form-control" th:value= "${partNumber}" readonly="readonly">
+	</div>
+	<!-- ELSE -->
+	<div th:unless="${partNumber!=null}">
+	<label>Part Number :: </label>
+	   <input type="text" class="form-control" placeholder="Add Part Number" id="partNumber" name="partNumber" required="required">
+	</div>
+
+	<table class="table table-hover table-bordered">
+		<div>
+		<tr>
+			<th>Parameter</th>
+			<th>Size</th>
+		</tr>
+		</div>
+		<tr>
+			<div th:if="${pdiDetails!=null}">
+				<tr th:each="obj:${pdiDetails}" class="text-success">
+					<th> <span th:text="${obj.parameters}" class="align-middle"></span> </th>
+					<th><p th:text="${obj.sizes}"></p> </th>
+				</tr>
+			</div>
+		</tr>
+			<td><input type="text" id="parameters" name="parameters" placeholder="Add Parameter" class="form-control"/></td>
+			<td><input type="text" id="sizes" name="sizes" placeholder="Add Parameter Size" class="form-control"/></td>
+			<br><input type="submit" value="Add New Parameter" class="btn btn-primary">
+			<br>
+	</table>	
+</form>
+	<a th:href="@{/pdi/savePDI}"><input type="button" value="Save PDI" class="btn btn-success"></a>
+</html>

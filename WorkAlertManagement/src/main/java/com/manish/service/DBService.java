@@ -19,12 +19,8 @@ public class DBService {
 		return taskRepo.save(task).getId();
 	}
 
-	public void addAllTask(List<Task> taskList) throws Exception{
-		taskRepo.saveAll(taskList);
-	}
-	
 	public List<Task> getAllTasks(String username, String statusStage) {
-		return taskRepo.findAllByUserNameAndStatusStage(username,statusStage);
+		return taskRepo.findAllByUserNameAndStatusStage(username, statusStage);
 	}
 
 	public List<Task> getTaskByDate(Date date) {
@@ -40,20 +36,20 @@ public class DBService {
 		return taskRepo.findById(id).get();
 	}
 
-	public Task addStatus(Task task,Boolean isDeleting) {
+	public Task addStatus(Task task, Boolean isDeleting) {
 		String status = StringUtils.EMPTY;
-		if(!isDeleting) {
+		if (!isDeleting) {
 			Task taskDB = getTaskById(task.getId());
 			taskDB.setTaskStatusDate(new Date());
-			if(StringUtils.isBlank(taskDB.getStatus()))
-				status = "#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
-			else	
-				status = taskDB.getStatus()+"#"+task.getStatus()+"|Status|_"+taskDB.getTaskStatusDate();
+			if (StringUtils.isBlank(taskDB.getStatus()))
+				status = "#" + task.getStatus() + "|Status|_" + taskDB.getTaskStatusDate();
+			else
+				status = taskDB.getStatus() + "#" + task.getStatus() + "|Status|_" + taskDB.getTaskStatusDate();
 			taskDB.setStatus(status);
 			taskRepo.save(taskDB);
 			System.out.println("Task Status is Added");
 			return taskDB;
-		}else {
+		} else {
 			taskRepo.save(task);
 			System.out.println("Task Status is Added");
 			return task;

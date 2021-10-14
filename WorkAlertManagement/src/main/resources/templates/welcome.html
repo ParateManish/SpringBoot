@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>PENDING TASKS</title>
+<title>welcome page</title>
 <meta charset="utf-8">
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -35,10 +35,15 @@
 	      	<li><a href="#">Users List</a></li>
 	      	<li><a href="#">Documents</a></li>
 	</nav>
-	
+	<h1 align="center" class="text-primary">Work Alert Management</h1>
+	<h1 align="center" class="text-warning">
+		<body onload=display_ct();>
+			<span id='ct' ></span>
+		</body>
+	</h1>
 </div>
 	<div th:if="${wishMsg!=null}" class="container">
-	<h4>
+	<h4 style="text-align: center">
 		<div class="alert alert-success">
 			<span th:text="${wishMsg}"></span>
 			<div th:if="${wishMsg}=='Good Morning'">
@@ -79,3 +84,17 @@
 		</div>
 	</div>
 	
+<script type="text/javascript"> 
+		function display_c(){
+			var refresh=1000; // Refresh rate in milli seconds
+			mytime=setTimeout('display_ct()',refresh)
+		}
+		
+		function display_ct() {
+			var x = new Date()
+			var x1=x.getFullYear() +"-"+(x.getMonth()+1)+ "-" + x.getDate(); 
+			x1 = x1 + " <br> " +  x.getHours( )+ ":" +  x.getMinutes() + ":" +  x.getSeconds();
+			document.getElementById('ct').innerHTML = x1;
+			display_c();
+		}
+</script>

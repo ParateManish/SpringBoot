@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.manish.model.DateAndStatusTaskPropagator;
+import com.manish.model.Common;
 import com.manish.model.Task;
 import com.manish.service.DBService;
 
@@ -112,9 +111,8 @@ public class AlertController {
 	public String addToTaskList(@ModelAttribute Task task, Model model) {
 		System.out.println("AlertController.addToTaskListd()");
 		System.out.println("Task Object Data :: " + task.toString());
-		if (StringUtils.isBlank(task.getTask1()) && StringUtils.isBlank(task.getTask2())
-				&& StringUtils.isBlank(task.getTask3()) && StringUtils.isBlank(task.getTask4())) {
-			model.addAttribute(ERR_MESSAGE, "Sorry Task is not Added,Please mention at Least 1 task in above");
+		if (StringUtils.isBlank(task.getTask1())) {
+			model.addAttribute(ERR_MESSAGE, "Sorry Task is not Added,Please mention task in above");
 			return ADD_NEW_TASK;
 
 		}
@@ -123,12 +121,6 @@ public class AlertController {
 		List<String> taskStrList = new ArrayList<String>();
 		if (StringUtils.isNotBlank(task.getTask1()))
 			taskStrList.add(task.getTask1());
-		if (StringUtils.isNotBlank(task.getTask2()))
-			taskStrList.add(task.getTask2());
-		if (StringUtils.isNotBlank(task.getTask3()))
-			taskStrList.add(task.getTask3());
-		if (StringUtils.isNotBlank(task.getTask4()))
-			taskStrList.add(task.getTask4());
 
 		for (String taskName : taskStrList) {
 			Task tsk = new Task();
@@ -138,16 +130,15 @@ public class AlertController {
 			tsk.setUserName(userController.getUsername());
 			tsk.setCustomUniqueKey(tsk.getUserName() + "+" + tsk.getTask1());
 			tsk.setStatusStage("Pending Task");
-			taskList.add(tsk);
+			dbService.addTask(tsk);
 		}
 
 		try {
-			dbService.addAllTask(taskList);
 			String message = StringUtils.EMPTY;
 			if (taskList.size() == 1)
 				message = "Task is Added in TODO List";
 			else
-				message = "Tasks are Added in TODO List";
+				message = "Tasks is not Added in TODO List";
 			model.addAttribute(MESSAGE, message);
 
 		} catch (DataIntegrityViolationException e) {
@@ -330,14 +321,14 @@ public class AlertController {
 		String finalStatus = StringUtils.EMPTY;
 		Task taskDB = dbService.getTaskById(id);
 		System.out.println("task Data :: " + taskDB.toString());
-		List<DateAndStatusTaskPropagator> list = new ArrayList<DateAndStatusTaskPropagator>();
+		List<Common> list = new ArrayList<Common>();
 		String status = taskDB.getStatus();
 
 		if (StringUtils.isBlank(status) && !isAddingStatus) {
 			model.addAttribute(EMPTY_STATUS, "You Don't have Status for this task");
 		} else if (status.contains("#")) {
 			for (String retval : status.split("#")) {
-				DateAndStatusTaskPropagator propagator = new DateAndStatusTaskPropagator();
+				Common propagator = new Common();
 				String[] split = retval.split("_");
 				int length = split.length;
 				for (int i = 0; i < length; i++) {

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>All PDIs</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div th:if="${pdiList!=null}">
+		<div class="container">
+			<div th:if="${partName!=null}">
+				Part Name ::<span th:value="${partName}"></span>
+			</div>
+			<div th:if="${partNumber!=null}">
+				Part Number ::<span th:value="${partNumber}"></span>
+			</div>
+				<table class="table table-hover table-bordered text-center">
+					<thead>
+						<tr>
+							<th>Parameters</th>
+							<th>Size</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+							<th>4</th>
+							<th>5</th>
+							<th>6</th>
+							<th>7</th>
+							<th>8</th>
+							<th>9</th>
+							<th>10</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ob:${pdiList}">
+							<td th:text="${#}"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+	</div>
+	<div th:unless="${pdiList!=null}">
+		<h1>You Don't have any PDIs</h1>
+	</div>
+
+</body>
+</html>

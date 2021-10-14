@@ -28,12 +28,12 @@ public class Task {
 
 	@Column
 	private String task1;
-
-	private String task2;
-
-	private String task3;
-
-	private String task4;
+//
+//	private String task2;
+//
+//	private String task3;
+//
+//	private String task4;
 
 	@Column
 	private String status;

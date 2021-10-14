@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.manish.exceptions.LoginException;
 import com.manish.model.UserLogin;
 import com.manish.repository.IUserLoginRepository;
 import com.manish.service.UserLoginDBService;
@@ -121,17 +122,19 @@ public class CustomLoginController {
 		return WELCOME_PAGE;
 	}
 
-	public void checkUserLogin() throws Exception {
+	public void checkUserLogin() {
 		System.out.println("CustomLoginController.checkUserLogin()-START");
 		String username = StringUtils.EMPTY;
 		if (loginMap.get(USERNAME) != null) {
 			username = loginMap.get(USERNAME).toString();
 			System.out.println("User is logged in and Username :: " + username);
+		} else {
+			throw new LoginException("Please Login");
 		}
-		if (StringUtils.isBlank(username) || username == null) {
-			System.err.println(LOGIN_REQUEST_MSG);
-			throw new Exception("Please Login");
-		}
+//		if (StringUtils.isBlank(username) || username == null) {
+//			System.err.println(LOGIN_REQUEST_MSG);
+//			throw new LoginException("Please Login");
+//		}
 		System.out.println("CustomLoginController.checkUserLogin()-END");
 	}
 

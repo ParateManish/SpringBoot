@@ -1,15 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <html xmlns:th="https://www.thymeleaf.org/">
- <title>Dummy Page</title>
- <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>dummy page</title>
 </head>
 <body>
-	<h1 class="header">Header</h1>
-	<h1>Form</h1>
-	<h1>Footer</h1>
-	
+	<script type="text/javascript">
+		//variables
+		var number = 1;
+		var name = "manish";
+		let number2 = 20;
+		let name2 = "vicky";
+		const number3 = "kukku";
+		const name3 = "30";
+
+		//functions
+		function msg(msg) {
+			alert(msg);
+		}
+		function wishMsg() {
+			alert("Hey!, Good Morning Man");
+		}
+		//if...else..
+		if (number > 10) {
+			document.write("number is greater than 10 :: " + number);
+		} else {
+			document.write("number is not greater than 10 :: " + number);
+			// 				msg("number is not greater than 10 ::"+number);
+		}
+	</script>
+	<br>
+	<h3>On loads</h3>
+	<input type="button" onclick="wishMsg()" value="single click">
+	<input type="button" ondblclick="wishMsg()" value="double click">
+
+
+	<h3>Object Creation</h3>
+	<script type="text/javascript">
+		var emp = new Object();
+		emp.id = "101";
+		emp.name = "Manish";
+		emp.address = "Nagpur";
+		document.write("Your Id :: " + emp.id + "<br>");
+		document.write("Your Name :: " + emp.name + "<br>");
+		document.write("Your Address :: " + emp.address + "<br>");
+	</script>
+
 </body>
+</html>
